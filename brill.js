@@ -6,6 +6,8 @@
 	Description: Brill
 **/
 
+var pos = require('pos');
+
 module.exports = {
 	process: function(response, callback) {
 		
