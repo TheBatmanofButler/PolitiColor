@@ -4,7 +4,7 @@
 	@date: 1-22-16
 
 	Description: Sentiment
-**/
+**/ 
 
 var sentiment = require('sentiment');
 
