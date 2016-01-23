@@ -90,6 +90,9 @@ d3.select(self.frameElement).style("height", height + "px");
 
 //-----------------------------------------------------------------------------------------------------------------
 
+var socket = io('http://52.90.127.98:8010');
+
+
 var colorMap = {
   "trump":"rgba(233,29,14,",
   "cruz":"rgba(233,29,14,",
@@ -126,3 +129,4 @@ var county = {
 }
 
 colorCounty(county);
+

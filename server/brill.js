@@ -15,6 +15,7 @@ var posFilter = {
 	VBD:1,
 	VBP:1,
 	VBG:1,
+	VBN:1,
 	RB:1,
 	RBR:1,
 	RBS:1,
@@ -55,9 +56,6 @@ function addPoliticsLex(tagger) {
 //Any number of PDT, JJ, VBG, and CC's together
 var NPpredescribers = /((((PDT|JJR|JJS|JJ|VBG)\s)?(CC\s|,\s)?)+)/g
 
-//Matches optional CC/, with various noun forms
-var NPsubjects = /(((\s?(NNPS|NNP|NNS|NN))+(\s(CC\s|,\s))?)+)/g
-
 //Matches who/what can/should verb verbing
 var NPpostdescribers = /((\s?(WP|WDT)\s(MD\s)?(VBD|VBP|VBZ|VB)(\sVBG|\sVBN)?)+)/g
 
@@ -65,7 +63,8 @@ var VPprepostdescribers = /(\s?(RBR|RBS|RB)(\sCC|\s,)?)+/g
 
 var VPverbs = /\s?(((VBD|VBP)\s(((JJ\s)?TO\sVB)|VBD|VBN))|VBD|VBZ)/g
 
-var NP = (NPpredescribers) + (NPsubjects) + (NPpostdescribers);
+//Matches optional CC/, with various noun forms
+var NPsubjects = /(((\s?(NNPS|NNP|NNS|NN))+(\s(CC\s|,\s))?)+)/
 
 module.exports = {
 	process: function(response, callback) {
@@ -90,11 +89,11 @@ module.exports = {
 
 		console.log(taggedWords)
 
-		var match = NPsubjects.exec(posString);
-		while (match != null) {
-		    console.log(match);
-		    match = NPsubjects.exec(posString);
-		}
+		var possibleSubjects = [];
+
+
+		
+		console.log(subjects);
 
 		response.tweet = taggedWords;
 

@@ -37,4 +37,4 @@ function processTweet(tweetObj, callback) {
 	});
 };
 
-processTweet({tweet:"Because of trump politics is entertaining"}, function(response) { return; });
+processTweet({tweet:"Hillary Clinton was destroyed by Trump"}, function(response) { return; });
