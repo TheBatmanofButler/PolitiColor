@@ -20,6 +20,8 @@ path {
 }
 
 
+
+
 .district-boundaries {
   pointer-events: none;
   fill: none;
@@ -46,9 +48,11 @@ path {
 .q8-9 { fill:rgb(8,48,107); }
 
 .quad1{ 
+  font-family: Raleway; 
+  font-size: 2vw;
   float:left;
-  background-color: red;
-  width: 25%;
+  width: 23%;
+  padding: 10px
 }
 
 .quad2{
