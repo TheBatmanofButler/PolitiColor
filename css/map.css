@@ -20,6 +20,8 @@ path {
 }
 
 
+
+
 .district-boundaries {
   pointer-events: none;
   fill: none;
@@ -44,3 +46,36 @@ path {
 .q6-9 { fill:rgb(33,113,181); }
 .q7-9 { fill:rgb(8,81,156); }
 .q8-9 { fill:rgb(8,48,107); }
+
+.quad1{ 
+  font-family: Raleway; 
+  font-size: 2vw;
+  float:left;
+  width: 23%;
+  height: 480px;
+  padding: 10px;
+  background-color: red;
+  border-radius: 15px;
+  margin: 3px;
+}
+
+#quad2{
+background-color: blue;
+}
+
+.headers{
+  font-size: 40px; 
+  font-family: Raleway; 
+  margin-top:50px; 
+  float: left; 
+  background-color: red;
+  width: 100%;
+
+}
+.textboxes{
+  font-family: Raleway; 
+  font-size: 2vw;
+  margin: 3px;
+  margin-top: 15px
+
+}
