@@ -90,7 +90,9 @@ module.exports = {
 
 		console.log(tweet);
 
-		return tweet;
+		response.tweet = tweet;
+
+		return response;
 	}
 }
 
