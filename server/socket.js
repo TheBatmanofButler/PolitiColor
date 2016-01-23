@@ -19,6 +19,7 @@ io.sockets.on('connection', function(socket) {
 });
 
 function emitData(data) {
+	console.log(data)
 	io.emit('serverToClient', data); 
 }
 
@@ -27,7 +28,8 @@ function testData() {
 
 	var subjList = ['trump', 'sanders', 'cruz', 'clinton', 'democrat', 'republican']
 		
-	var index = Math.floor(Math.random()*subjList.length)
+	var index = Math.floor(Math.random()*subjList.length);
+	var subj = subjList[index];
 
 	var dummyData = {
 	  loc: {
@@ -37,6 +39,9 @@ function testData() {
 	  subj: subj 
 	}
 
+	emitData(dummyData);
 
 	setTimeout(testData, 1);
 }
+
+testData();

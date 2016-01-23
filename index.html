@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Politicolor</title>
+
+    <!-- FONTS -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+    <!--CSS for various panels, one per page-->
+
+    <link rel="stylesheet" href="css/map.css" />
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/queue.v1.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+    <script src="http://52.90.127.98:6010/socket.io/socket.io.js"></script>
+  <head>
+  <body>
+
+    <div class ="five" style ="background-color: red; font-size: 40px; font-family: Raleway"> <img src= "logo.png"> </img></div>
+    
+    <script src="JS/us.js"></script>
+    <script src="JS/congress.js"></script>
+    <script src="JS/map.js"></script>
+
+    <div class ="five" style="height: 50px;"> </div>
+    <div class ="headers" > 
+      <p><i> What is PolitiColor?</i></p> 
+      </div> 
+      <div><img src= "repubdem.png" style="width = 50%; float:right;"> </img></div>
+    <div class = "textboxes" style="width:50%; height=400px;">
+
+           
+      <p> PolitiColor is a site(?) that uses twitter's API and D3 to create chroropleth maps that portray the genenral sentiment of twitter users in that state or election district.</p> 
+      <p> By using natural language processing and (WHAT ARE WE USING), tweets are parsed in terms of their sentiment toward the candiadate or political party that they write about.</p> 
+      <p> For example: if you, in Pennsylvania, write "surpised and pleased sanders is doing really well in New Hampshire #feelthebern," that gets parsed and affects Pennsylvania's display color on the map. 
+      </p>
+     
+    </div> 
+    <div style = "font-size: 40px; font-family: Raleway; background-color: red;"> 
+      <p><i> How PolitiColor works</i></p> 
+    </div>  
+    <div> <img src="workflow.png" style="align: middle; width: 100%;"></img> </div>
+    <div class = "quad1" id ="quad2">
+      <p><i>twitter</i></p>
+      <p> twitter api etc get data </p> 
+      </div>
+    <div class = "quad1">
+      <p><i>the sentiment engine</i></p>
+      <p> A romantic name for an unromantic subject, the sentiment engine uses a homebrewed(change word?) algorithm using (shit whats the thing called?) to assign values to positive and negatively connotated words. </p> 
+      </div>
+    </div>
+    <div class = "quad1" id="quad2">
+      <p><i>the server</i></p>
+      <p> The server takes all the individual numbers generated from the tweets and crunches them into a single number representative of the state and voting district, and then assigns a candidate based on the number.</p> 
+    </div>
+    <div class = "quad1">
+    <p><i>the chroropleth map</i></p>
+      <p> A chroropleth map is generated based on the previously generated numbers, providing an easily understood data visualization.</p> 
+    </div>
+
+    <div class ="headers" > 
+      <p><i> The Sentiment Engine explained</i></p> 
+      <p style="font-size: 2vw;"> Or, how exactly we parse a tweet</p> 
+      </div> 
+        <div> gotta put the pic about the sentiment engine here </div> 
+      
+  </body>
+</html>
