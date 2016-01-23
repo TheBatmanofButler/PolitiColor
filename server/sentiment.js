@@ -7,9 +7,46 @@
 **/ 
 
 var sentiment = require('sentiment');
+var bayes = require('bayes');
+var fs = require('fs');
+var jsonfile = require('jsonfile');
+
+// creates bayes classifer
+function bayesClassifier() {
+	var classifier = bayes();
+
+	var tweets = JSON.parse(fs.readFileSync('../NLPtrainer/trainer.json', 'utf8'));
+
+	for (var key in tweets) {
+		classifier.learn(key, tweets[key]);
+	}
+
+	// serialize the classifier's state as a JSON string. 
+	var stateJson = classifier.toJson()
+
+	jsonfile.writeFile('bayesClassifier.json', stateJson, function (err) {
+		console.error(err)
+	})
+
+}
 
 module.exports = {
+
 	process: function(response, callback) {
-		return response;
+		// callback(response);
+
+		classifier.categorize(response);
+
+		// serialize the classifier's state as a JSON string.
+		var stateJson = classifier.toJson()
+
+		// load the classifier back from its JSON representation.
+		var revivedClassifier = bayes.fromJson(stateJson)
+
+		callback(revivedClassifier);
 	}
 }
+
+module.exports.process("", function(resp) {
+	// console.log(resp);
+});
