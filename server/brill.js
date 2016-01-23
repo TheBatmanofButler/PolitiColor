@@ -34,6 +34,23 @@ function addPoliticsLex(tagger) {
 	return tagger;
 }
 
+//Rules to match different portions of the sentence based on tagged words
+
+//Any number of PDT, JJ, VBG, and CC's together
+var NPpredescribers = /((PDT|JJR|JJS|JJ|VBG)\s)?(CC\s|,\s)?/
+
+//Matches optional CC/, with various noun forms
+var NPsubjects = /(((\s((CC\s)|(,\s)))?(NNPS|NNP|NNS|NN))+)/
+
+//Matches who/what can/should verb verbing
+var NPpostdescribers = /((WP|WDT)\s(MD\s)?(VBD|VBP|VBZ|VB)(\sVBG|\sVBN)?)?/
+
+var VPprepostdescribers = /[a-z]+/
+
+var VPverbs = /[a-z]+/
+
+var NP = (NPpredescribers) + (NPsubjects) + (NPpostdescribers);
+
 module.exports = {
 	process: function(response, callback) {
 	    var words = new pos.Lexer().lex(response.tweet);
@@ -50,8 +67,6 @@ module.exports = {
 		}
 
 		console.log(posString);
-
-
 
 		response.tweet = taggedWords;
 

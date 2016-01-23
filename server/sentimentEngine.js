@@ -37,4 +37,4 @@ function processTweet(tweetObj, callback) {
 	});
 };
 
-processTweet({tweet:"Poor Jeb. I could've sworn I saw him outside Trump Tower the other day!"}, function(response) { return; });
+processTweet({tweet:"Because he ate my sandwich, I could not eat my sandwich"}, function(response) { return; });
