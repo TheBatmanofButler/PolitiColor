@@ -37,4 +37,4 @@ function processTweet(tweetObj, callback) {
 	});
 };
 
-processTweet({tweet:"skillfully running is an art"}, function(response) { return; });
+processTweet({tweet:"Because of trump politics is entertaining"}, function(response) { return; });

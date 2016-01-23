@@ -6,8 +6,22 @@
 	Description: Brill
 **/
 
-var rules = {
-	"NP VP":"S"
+var posFilter = {
+	JJ:1,
+	JJR:1,
+	JJS:1,
+	VB:1,
+	VBZ:1,
+	VBD:1,
+	VBP:1,
+	VBG:1,
+	RB:1,
+	RBR:1,
+	RBS:1,
+	NN:1,
+	NNPS:1,
+	NNP:1,
+	NNS:1
 } 
 
 var keywords = {
@@ -39,17 +53,17 @@ function addPoliticsLex(tagger) {
 //Rules to match different portions of the sentence based on tagged words
 
 //Any number of PDT, JJ, VBG, and CC's together
-var NPpredescribers = /((((PDT|JJR|JJS|JJ|VBG)\s)?(CC\s|,\s)?)+)/
+var NPpredescribers = /((((PDT|JJR|JJS|JJ|VBG)\s)?(CC\s|,\s)?)+)/g
 
 //Matches optional CC/, with various noun forms
-var NPsubjects = /(((\s?(NNPS|NNP|NNS|NN))+(\s(CC\s|,\s))?)+)/
+var NPsubjects = /(((\s?(NNPS|NNP|NNS|NN))+(\s(CC\s|,\s))?)+)/g
 
 //Matches who/what can/should verb verbing
-var NPpostdescribers = /((\s?(WP|WDT)\s(MD\s)?(VBD|VBP|VBZ|VB)(\sVBG|\sVBN)?)+)/
+var NPpostdescribers = /((\s?(WP|WDT)\s(MD\s)?(VBD|VBP|VBZ|VB)(\sVBG|\sVBN)?)+)/g
 
-var VPprepostdescribers = /(\s?(RBR|RBS|RB)(\sCC|\s,)?)+/
+var VPprepostdescribers = /(\s?(RBR|RBS|RB)(\sCC|\s,)?)+/g
 
-var VPverbs = /\s?(((VBD|VBP)\s(((JJ\s)?TO\sVB)|VBD|VBN))|VBD|VBZ)/
+var VPverbs = /\s?(((VBD|VBP)\s(((JJ\s)?TO\sVB)|VBD|VBN))|VBD|VBZ)/g
 
 var NP = (NPpredescribers) + (NPsubjects) + (NPpostdescribers);
 
@@ -63,16 +77,22 @@ module.exports = {
 		var taggedWords = tagger.tag(words);
 
 		var posString = "";
+		var actualString = "";
 
-		for(index in taggedWords) {
-			posString = posString + taggedWords[index][1] + " ";
+		console.log(taggedWords)
+
+		for(var i=0; i < taggedWords.length; i++) {
+			if(!posFilter[taggedWords[i][1]]) {
+				taggedWords.splice(i, 1);
+				i--;
+			}
 		}
 
-		console.log(posString);
+		console.log(taggedWords)
 
 		var match = NPsubjects.exec(posString);
 		while (match != null) {
-		    console.log(match[0]);
+		    console.log(match);
 		    match = NPsubjects.exec(posString);
 		}
 
