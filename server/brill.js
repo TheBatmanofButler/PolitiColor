@@ -19,8 +19,10 @@ var keywords = {
 	'republican_party':'NNP',
 	'obama':'NNP',
 	'general_election':'NN',
-	'grass_roots': 'JJ'
-
+	'grass_roots': 'JJ',
+	'feeltheburn': 'NN',
+	'trump2016':'NN',
+	'theRealDonaldTrump':'NNP'
 }
 
 // part-of-speech brill library
@@ -37,17 +39,17 @@ function addPoliticsLex(tagger) {
 //Rules to match different portions of the sentence based on tagged words
 
 //Any number of PDT, JJ, VBG, and CC's together
-var NPpredescribers = /((PDT|JJR|JJS|JJ|VBG)\s)?(CC\s|,\s)?/
+var NPpredescribers = /((((PDT|JJR|JJS|JJ|VBG)\s)?(CC\s|,\s)?)+)/
 
 //Matches optional CC/, with various noun forms
-var NPsubjects = /(((\s((CC\s)|(,\s)))?(NNPS|NNP|NNS|NN))+)/
+var NPsubjects = /(((\s?(NNPS|NNP|NNS|NN))+(\s(CC\s|,\s))?)+)/
 
 //Matches who/what can/should verb verbing
-var NPpostdescribers = /((WP|WDT)\s(MD\s)?(VBD|VBP|VBZ|VB)(\sVBG|\sVBN)?)?/
+var NPpostdescribers = /((\s?(WP|WDT)\s(MD\s)?(VBD|VBP|VBZ|VB)(\sVBG|\sVBN)?)+)/
 
-var VPprepostdescribers = /[a-z]+/
+var VPprepostdescribers = /(\s?(RBR|RBS|RB)(\sCC|\s,)?)+/
 
-var VPverbs = /[a-z]+/
+var VPverbs = /\s?(((VBD|VBP)\s(((JJ\s)?TO\sVB)|VBD|VBN))|VBD|VBZ)/
 
 var NP = (NPpredescribers) + (NPsubjects) + (NPpostdescribers);
 
@@ -67,6 +69,12 @@ module.exports = {
 		}
 
 		console.log(posString);
+
+		var match = NPsubjects.exec(posString);
+		while (match != null) {
+		    console.log(match[0]);
+		    match = NPsubjects.exec(posString);
+		}
 
 		response.tweet = taggedWords;
 

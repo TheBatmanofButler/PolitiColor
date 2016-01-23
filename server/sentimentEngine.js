@@ -37,4 +37,4 @@ function processTweet(tweetObj, callback) {
 	});
 };
 
-processTweet({tweet:"Because he ate my sandwich, I could not eat my sandwich"}, function(response) { return; });
+processTweet({tweet:"skillfully running is an art"}, function(response) { return; });
