@@ -6,6 +6,9 @@
 	Description: Brill
 **/
 
+var rules = {
+	"NP VP":"S"
+} 
 
 var keywords = {
 	'trump': 'NNP', 
@@ -31,7 +34,6 @@ function addPoliticsLex(tagger) {
 	return tagger;
 }
 
-
 module.exports = {
 	process: function(response, callback) {
 	    var words = new pos.Lexer().lex(response.tweet);
@@ -49,12 +51,10 @@ module.exports = {
 
 		console.log(posString);
 
-		for(index in taggedWords) {
-			
-		}
+
 
 		response.tweet = taggedWords;
 
-	    callback(response)
+	    callback(response);
 	}
 }
