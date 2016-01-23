@@ -10,6 +10,6 @@ var sentiment = require('sentiment');
 
 module.exports = {
 	process: function(response, callback) {
-		return sentiment(response).score;
+		return response;
 	}
 }

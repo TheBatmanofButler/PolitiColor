@@ -7,25 +7,54 @@
 **/
 
 
+var keywords = {
+	'trump': 'NNP', 
+	'clinton': 'NNP',
+	'sanders': 'NNP',
+	'cruz':'NNP',
+	'democratic_party':'NNP',
+	'republican_party':'NNP',
+	'obama':'NNP',
+	'general_election':'NN',
+	'grass_roots': 'JJ'
+
+}
+
 // part-of-speech brill library
 var pos = require('pos');
 
+function addPoliticsLex(tagger) {
+	for(key in keywords) {
+		tagger.extendLexicon({key:[keywords[key]]});
+	}
+
+	return tagger;
+}
+
+
 module.exports = {
 	process: function(response, callback) {
-	    var words = new pos.Lexer().lex(response);
+	    var words = new pos.Lexer().lex(response.tweet);
 		var tagger = new pos.Tagger();
+
+		tagger = addPoliticsLex(tagger);
+
 		var taggedWords = tagger.tag(words);
-	    callback(taggedWords)
+
+		var posString = "";
+
+		for(index in taggedWords) {
+			posString = posString + taggedWords[index][1] + " ";
+		}
+
+		console.log(posString);
+
+		for(index in taggedWords) {
+			
+		}
+
+		response.tweet = taggedWords;
+
+	    callback(response)
 	}
-}
-
-var main = function(response) {
-    var words = new pos.Lexer().lex(response);
-	var tagger = new pos.Tagger();
-	var taggedWords = tagger.tag(words);
-	console.log(taggedWords);
-}
-
-if (require.main === module) {
-	main("Thursday evening, Sen. Bernie Sanders’ presidential campaign account tweeted out a promise that is likely to bring joy to anyone dismayed by the increasing flood of money seeking to influence American elections.");
 }

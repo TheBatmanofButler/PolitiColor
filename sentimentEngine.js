@@ -18,14 +18,23 @@ var sent = require('./sentiment')
 /**
 	Takes in a string, converts into a subject number format
 **/
-function processTweet(tweet, callback) {
-	norm.process(tweet, function(normResponse) {
-		filter.process(normResponse, function(filterResponse) {
-			brill.process(filterResponse, function(brillResponse) {
-				sent.process(brillResponse, function(sentimentResponse) {
-					callback(sentimentResponse);
-				});
+function processTweet(tweetObj, callback) {
+
+	console.log(tweetObj);
+
+	norm.process(tweetObj, function(normResponse) {
+
+		console.log(normResponse);
+
+		brill.process(normResponse, function(brillResponse) {
+
+			console.log(brillResponse);
+
+			sent.process(brillResponse, function(sentimentResponse) {
+				callback(sentimentResponse);
 			});
 		});
 	});
 };
+
+processTweet({tweet:"Poor Jeb. I could've sworn I saw him outside Trump Tower the other day!"}, function(response) { return; });

@@ -11,6 +11,7 @@ var stringMap = {
 	':(':'sad',
 	':D':'very happy',
 	'D:':'very sad',
+	'DX':'dead',
 	'>:(':'angry',
 	'D:<':'very angry',
 	'u':'you',
@@ -21,7 +22,6 @@ var stringMap = {
 	'tho':'though',
 	'bae':'awesome',
 	'abt':'about',
-	'..':'...',
 	'<3':'love',
 	'w/':'with',
 	'b/c':'because',
@@ -36,12 +36,20 @@ var stringMap = {
 	'ic':'I see',
 	'idk':'I do not know',
 	'tbh':'to be honest',
-	'donald trump':'trump',
-	'bernie sanders':'sanders',
-	'hillary clinton':'clinton',
+	'donaldtrump':'trump',
+	'berniesanders':'sanders',
+	'bernardsanders':'sanders',
+	'hillaryclinton':'clinton',
+	'tedcruz':'cruz',
+	'hillary':'clinton',
+	'bernie':'sanders',
 	'gov':'government',
 	'dem':'democrat',
-	'GOP':'republican'
+	'GOP':'republican_party',
+	'gr8': 'great',
+	'lol': 'laugh out loud',
+	'!!':'!',
+	'never':'not'
 }	
 
 //Matches all white space
@@ -53,7 +61,23 @@ var twoTooRegex =/2([a-z]+)/g;
 //Matches any number followed by k
 var thousandRegex =/([0-9]+)k/g;
 
+//Matches @lksjdf
 var atRegex=/@([a-z]+)/g;
+
+//Matches a candidate with a space
+var candidateRegex = /(donald) (trump)|(ted) (cruz)|(hillary) (clinton)|(bernie) (sanders)|(bernard) (sanders)/g;
+
+//Matches url
+var urlRegex = /(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)/g
+
+//Matches characters that repeat more than 2 times 
+var repeatRegex = /(.)\1{2,}/g;
+
+//Matches contractions
+var notContractionRegex = /n't/g;
+var haveContractionRegex = /'ve/g;
+var willContractionRegex = /'ll/g;
+
 
 module.exports = {
 	/**
@@ -68,15 +92,23 @@ module.exports = {
 	**/
 	process: function(response, callback) {
 		var tweet = response.tweet;
-		console.log(tweet)
 		tweet = tweet.toLowerCase();
-		console.log(tweet)
 		tweet = tweet.replace(spaceRegex, ' ')
 				.replace(twoTooRegex, function(match, p1) { return 'too ' + p1})
 				.replace(thousandRegex, function(match, p1) { return p1 + '000'})
-				.replace(atRegex, function(match, p1) { return 'at ' + p1});
+				.replace(atRegex, function(match, p1) { return 'at ' + p1})
+				.replace(candidateRegex, function(match, p1, p2) {return p1 + p2})
+				.replace(urlRegex, ' ')
+				.replace(repeatRegex, function(match, p1) { return p1+p1})
+				.replace(notContractionRegex, function(match) { return " not"})
+				.replace(haveContractionRegex, function(match) {return " have"})
+				.replace(willContractionRegex, function(match) {return " will"})
+				.replace('\'', '')
+				.replace('republican party', 'republican_party')
+				.replace('democratic party', 'democratic_party')
+				.replace('general election', 'general_election')
+				.replace('grass roots', 'grass_roots');
 
-		console.log(tweet)
 
 		var words = tweet.split(' ');
 
@@ -88,12 +120,9 @@ module.exports = {
 
 		tweet = words.join(' ');
 
-		console.log(tweet);
-
 		response.tweet = tweet;
 
-		return response;
+		callback(response);
 	}
 }
 
-module.exports.process({tweet:'@WhiteGenocideTM: @realDonaldTrump       Poor Jeb. I        1000k           couldve sworn I saw him outside Trump Tower the other day! 2much man 2much. u suk'});
