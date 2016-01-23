@@ -52,7 +52,7 @@ path {
   font-size: 2vw;
   float:left;
   width: 23%;
-  height: 480px;
+  height: 40vw;
   padding: 10px;
   background-color: red;
   border-radius: 15px;
@@ -70,9 +70,11 @@ background-color: blue;
   float: left; 
   background-color: red;
   width: 100%;
+  padding: 10px;
 
 }
 .textboxes{
+  padding: 10px;
   font-family: Raleway; 
   font-size: 2vw;
   margin: 3px;
