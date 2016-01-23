@@ -52,16 +52,30 @@ path {
   font-size: 2vw;
   float:left;
   width: 23%;
-  padding: 10px
+  height: 480px;
+  padding: 10px;
+  background-color: red;
+  border-radius: 15px;
+  margin: 3px;
 }
 
-.quad2{
-
+#quad2{
+background-color: blue;
 }
 
-.quad3{
+.headers{
+  font-size: 40px; 
+  font-family: Raleway; 
+  margin-top:50px; 
+  float: left; 
+  background-color: red;
+  width: 100%;
 
 }
-.quad4{
+.textboxes{
+  font-family: Raleway; 
+  font-size: 2vw;
+  margin: 3px;
+  margin-top: 15px
 
 }
