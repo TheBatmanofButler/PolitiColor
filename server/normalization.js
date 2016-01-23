@@ -9,11 +9,11 @@
 var stringMap = {
 	':)':'happy',
 	':(':'sad',
-	':D':'very happy',
-	'D:':'very sad',
-	'DX':'dead',
+	':d':'very happy',
+	'd:':'very sad',
+	'dX':'dead',
 	'>:(':'angry',
-	'D:<':'very angry',
+	'd:<':'very angry',
 	'u':'you',
 	'r':'are',
 	'ur':'your',
@@ -45,7 +45,7 @@ var stringMap = {
 	'bernie':'sanders',
 	'gov':'government',
 	'dem':'democrat',
-	'GOP':'republican_party',
+	'gop':'republican_party',
 	'gr8': 'great',
 	'lol': 'laugh out loud',
 	'!!':'!',
@@ -107,6 +107,7 @@ module.exports = {
 				.replace('republican party', 'republican_party')
 				.replace('democratic party', 'democratic_party')
 				.replace('general election', 'general_election')
+				.replace('gop frontrunner', 'gop_frontrunner')
 				.replace('grass roots', 'grass_roots');
 
 
