@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html, body {
   width: 100%;
   height: 100%;
@@ -18,9 +19,6 @@ path {
 .districts {
   fill: #bbb;
 }
-
-
-
 
 .district-boundaries {
   pointer-events: none;
@@ -53,10 +51,10 @@ path {
   float:left;
   width: 23%;
   height: 40vw;
-  padding: 10px;
+  padding: .5%;
   background-color: #2E2E2E;
   border-radius: 15px;
-  margin: 3px;
+  margin-left: 1%;
   color: white;
 }
 
@@ -69,11 +67,58 @@ background-color: #585858;
   font-family: Roboto Slab; 
   margin-top:50px; 
   float: left; 
-  background-color: #585858;
+=======
+html, body {
   width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+path {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.state-boundaries {
+  pointer-events: none;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.quad1{ 
+  font-family: Raleway; 
+  font-size: 2vw;
+  float:left;
+  width: 23%;
+  height: 40vw;
+  padding: 10px;
+  background-color: #2E2E2E;
+  border-radius: 15px;
+  margin: 3px;
+  color: white;
+}
+
+#quad2{
+background-color: #585858;
+}
+
+  .quadTitle {
+    font-family: Roboto Slab; 
+    font-size: 2.2vw;
+    text-align: center;
+  }
+
+.headers{
+  font-size: 2vw;
+  font-family: Roboto Slab;
+  margin-top:50px;
+  float: left;
+  background-color: #585858;
+  width: 98.8%;
   padding: 10px;
   color: white;
-
 }
 .textboxes{
   padding: 2vw;
@@ -82,5 +127,24 @@ background-color: #585858;
   margin: 3px;
   margin-top: 2vw;
   color: white;
+}
 
+.title {
+>>>>>>> 7fe9347fe93ce2b0cdb5ef2b383223603c97534c
+  background-color: #585858;
+  font-size: 1.8vw;
+  font-family: Roboto Slab;
+  color: white;
+  padding: 1vw;
+  padding-left: 2vw;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.4vw;
+  font-family: Raleway;
+  line-height: 2vw;
+  margin-left: 2%;
+  margin-top: 1%;
+  text-align: center;
 }
