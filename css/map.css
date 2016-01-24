@@ -10,42 +10,12 @@ path {
   stroke-linecap: round;
 }
 
-
-.land {
-  fill: yellow;
-}
-
-.districts {
-  fill: #bbb;
-}
-
-
-
-
-.district-boundaries {
-  pointer-events: none;
-  fill: none;
-  stroke: #fff;
-  stroke-width: 1px;
-}
-
 .state-boundaries {
   pointer-events: none;
   fill: none;
   stroke: #fff;
   stroke-width: 1.5px;
 }
-
-
-.q0-9 { fill:rgb(247,251,255); }
-.q1-9 { fill:rgb(222,235,247); }
-.q2-9 { fill:rgb(198,219,239); }
-.q3-9 { fill:rgb(158,202,225); }
-.q4-9 { fill:rgb(107,174,214); }
-.q5-9 { fill:rgb(66,146,198); }
-.q6-9 { fill:rgb(33,113,181); }
-.q7-9 { fill:rgb(8,81,156); }
-.q8-9 { fill:rgb(8,48,107); }
 
 .quad1{ 
   font-family: Raleway; 
@@ -64,16 +34,21 @@ path {
 background-color: #585858;
 }
 
+  .quadTitle {
+    font-family: Roboto Slab; 
+    font-size: 2.2vw;
+    text-align: center;
+  }
+
 .headers{
-  font-size: 40px; 
-  font-family: Roboto Slab; 
-  margin-top:50px; 
-  float: left; 
+  font-size: 2vw;
+  font-family: Roboto Slab;
+  margin-top:50px;
+  float: left;
   background-color: #585858;
-  width: 100%;
+  width: 98.8%;
   padding: 10px;
   color: white;
-
 }
 .textboxes{
   padding: 2vw;
@@ -82,5 +57,23 @@ background-color: #585858;
   margin: 3px;
   margin-top: 2vw;
   color: white;
+}
 
+.title {
+  background-color: #585858;
+  font-size: 1.8vw;
+  font-family: Roboto Slab;
+  color: white;
+  padding: 1vw;
+  padding-left: 2vw;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.4vw;
+  font-family: Raleway;
+  line-height: 2vw;
+  margin-left: 2%;
+  margin-top: 1%;
+  text-align: center;
 }

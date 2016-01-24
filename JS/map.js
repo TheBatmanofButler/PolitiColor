@@ -9,23 +9,17 @@ var quantize = d3.scale.quantize()
     .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
 
 var projection = d3.geo.albersUsa()
-    .scale(1650)
+    .scale(width)
     .translate([width / 2, height / 2]);
 
 var path = d3.geo.path()
     .projection(projection);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select(".subtitle").append("svg")
     .attr("width", width)
     .attr("height", height);
 
 function ready(error, us, congress) {
-
-  var zoom = d3.behavior.zoom()
-    .translate([0, 0])
-    .scale(1)
-    .scaleExtent([1, 8])
-    .on("zoom", zoomed);
 
   var features = svg.append("g");    
     /**features.call(zoom)
@@ -53,16 +47,11 @@ function ready(error, us, congress) {
     .enter().append("path")
       .attr("id", function(d) { return 'w' + counter++; })
       .attr("d", path);
-
+  
   features.append("path")
       .attr("class", "state-boundaries")
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
       .attr("d", path);
-
-  function zoomed() {
-    features.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-    features.select(".state-boundaries").style("stroke-width", 1.5 / d3.event.scale + "px");
-  }
 }
 
 ready(null, us, congress);
@@ -105,3 +94,7 @@ socket.on('serverToClient', function(data){
   colorCounty(data);
 });
 
+
+$(document).ready(function() {
+  $('html').fadeIn();
+});
