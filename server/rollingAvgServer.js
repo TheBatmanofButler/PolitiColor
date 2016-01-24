@@ -40,7 +40,7 @@ LocationSentiment Object: Object that stores the sentiments tied to a location a
 */
 
 // Max sentimentResponses Array[Num] size
-var MAX_SENTIMENT_RESPONSES = 500;
+var MAX_SENTIMENT_RESPONSES = 5;
 
 
 // Subject Objects
@@ -86,9 +86,11 @@ function updateSubject(sentimentResponse, callback) {
 	var subjLocSent_CurrResponse = subjLocSent['currResponse'];
 	var subjLocSent_SentResponses = subjLocSent['sentimentResponses'];
 
+	console.log(subjLocSent_SentResponses);
+
 	// now, deposit the newest sentiment response into the LocationSentiment for this Subject
 	if (subjLocSent_SentResponses.length > MAX_SENTIMENT_RESPONSES) {
-		subjLocSent_SentResponses = addSentiment(subjLocSent_SentResponses, subjLocSent_CurrResponse);
+		addSentiment(subjLocSent_SentResponses, subjLocSent_CurrResponse);
 	}
 	else if (subjLocSent_CurrResponse < 0) {
 		// only push if this is not the very first sentiment responses
@@ -124,6 +126,7 @@ function arrayAvg(array) {
 	return arraySum / array.length;
 }
 
+
 /*
 // test first data in clean database
 var sent1 = {
@@ -132,16 +135,22 @@ var sent1 = {
 	sent: -0.45
 }
 
-var sent2 = {
-	loc: {state: 'HI'},
-	subj: 'cruz',
-	sent: -0.05
-}
 
-updateSubject(sent2, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
+updateSubject(sent1, (data) => {console.log(data)});
 updateSubject(sent1, (data) => {console.log(METADATA['cruz'])});
-updateSubject(sent2, (data) => {console.log(METADATA['cruz'])});
 */
+
 
 
 
