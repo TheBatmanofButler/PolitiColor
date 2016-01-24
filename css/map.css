@@ -38,20 +38,21 @@ ul, li {
     text-align: center;
     margin-right: 10%;
     font-family: Raleway;
-    font-size: .7vw;
+    font-size: 1.2vw;
     /* background: gray; */
   }
 
   .buttons .button {
     cursor: pointer;
-    height: 22%;
+    height: 21%;
     text-align: center;
-    width: 16%;
+    width: 21%;
     margin-top: 4%;
     margin-left: 44%;
     background-size: contain;
     border-radius: 50px;
     /* background-size: cover; */
+    background-position: center;
     background-repeat: no-repeat;
   }
 
