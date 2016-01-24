@@ -86,21 +86,6 @@ module.exports = {
 									        console.log("done with 5")
 									        console.log(tweets.length)
 
-									        // Ramp
-									        for (var i=0; i<10000; i++) {
-									        	var data = tweets.pop();
-									        	var responseObj = {
-													tweet: data.tweet,
-													loc: {
-														state: data.state
-													}, 
-													sent: null,
-													subj: null
-												}
-												
-									        	callback(responseObj)
-									        };
-
 									        setInterval(function() {
 									        	console.log(tweets.length)
 
@@ -115,7 +100,7 @@ module.exports = {
 													subj: null
 												}
 									        	callback(responseObj)
-									        }, 500);
+									        }, 50);
 									    });
 									stream5.pipe(csvStream5);
 							    });
