@@ -5,6 +5,7 @@
 // npm install fast-csv
 var fs = require('fs');
 var csv = require('fast-csv');
+var jsonfile = require('jsonfile');
 
 // filename: String of csv filename
 // callback: function that executes after CSV has been parsed
@@ -39,14 +40,8 @@ function parseTwitterCSV(filename, callback) {
 	stream.pipe(csvStream);
 }
 
-
-
-
-
-
-
-
-
-
-
-
+parseTwitterCSV('machineLearningArtifacts/stream1.csv', function(response) {
+	jsonfile.writeFile('machineLearningArtifacts/tweets1.json', response, function (err) {
+		console.error(err)
+	})
+});
