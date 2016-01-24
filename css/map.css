@@ -19,9 +19,6 @@ path {
   fill: #bbb;
 }
 
-
-
-
 .district-boundaries {
   pointer-events: none;
   fill: none;
@@ -51,12 +48,12 @@ path {
   font-family: Raleway; 
   font-size: 2vw;
   float:left;
-  width: 23%;
+  width: 22%;
   height: 40vw;
   padding: 10px;
   background-color: #2E2E2E;
   border-radius: 15px;
-  margin: 3px;
+  margin-left: 1vw;
   color: white;
 }
 
