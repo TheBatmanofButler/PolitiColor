@@ -34,19 +34,12 @@ module.exports = {
 
 	process: function(response, callback) {
 		// callback(response);
-
-		classifier.categorize(response);
-
-		// serialize the classifier's state as a JSON string.
-		var stateJson = classifier.toJson()
-
-		// load the classifier back from its JSON representation.
+		var stateJson = JSON.parse(fs.readFileSync('bayesClassifier.json', 'utf8'));
 		var revivedClassifier = bayes.fromJson(stateJson)
+		revivedClassifier.categorize(response);
 
-		callback(revivedClassifier);
+		console.log(revivedClassifier);
 	}
 }
 
-module.exports.process("", function(resp) {
-	// console.log(resp);
-});
+bayesClassifier();
