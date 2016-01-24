@@ -18,12 +18,6 @@ io.sockets.on('connection', function(socket) {
    	});
 });
 
-function emitData(data) {
-	console.log(data)
-	io.emit('serverToClient', data); 
-}
-
-
 function testData() {
 
 	var subjList = ['trump', 'sanders', 'cruz', 'clinton', 'democrat', 'republican']
@@ -44,4 +38,9 @@ function testData() {
 	setTimeout(testData, 100);
 }
 
-testData();
+module.exports = {
+	emitData: function(data) {
+		console.log(data)
+		io.emit('serverToClient', data); 
+	}
+}
