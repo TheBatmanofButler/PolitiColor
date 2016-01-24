@@ -143,7 +143,7 @@ function addSentiment(sentimentArray, sentiment) {
 
 // find average of Array[Num]
 function arrayAvg(array) {
-	var arraySum = array.reduce((num1, num2) => {
+	var arraySum = array.reduce(function(num1, num2) {
 		return num1 + num2
 	});
 

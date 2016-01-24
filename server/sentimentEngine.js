@@ -13,7 +13,7 @@ var norm = require('./normalization');
 //Filters out unnecessary stuff
 var filter = require('./filter');
 //Part of Speech Tagger
-var brill = require('./brill');
+//var brill = require('./brill');
 //Sentiment calculator
 var sent = require('./sentiment')
 
