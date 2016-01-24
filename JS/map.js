@@ -79,6 +79,8 @@ $(document).ready(function() {
 
   ready(null, us, congress);
 
+  mapColors();
+
 });
 
 
@@ -154,11 +156,6 @@ var stateToNum = {
 
 var currentCandidate = "repub-dem";
 
-function getIDFromTweet(tweetObj) {
-  return stateToNum[tweetObj.loc.state];
-  //return "w" + tweetObj.loc.state;
-}
-
 function getColorFromTweet(tweetObj, subject) {
 
   if(tweetObj.sent < 0) {
@@ -214,23 +211,23 @@ function mapColors() {
 }
 
 function processData(data) {  
-  var id = getIDFromTweet(data);
-  
-  data.id = id;
 
   console.log(data)
 
-  /*for(index in data.subj) {
+  data.id = stateToNum[data.loc.state]; 
+
+  console.log(data.id)
+
+  for(index in data.subj) {
 
     var subject = data.subj[index]; 
     var color = getColorFromTweet(data, subject);
     data.color = color; 
 
-    subjToStore[subject][id] = data;
+    subjToStore[subject][data.id] = data;
 
-    if(subject === currentCandidate || currentCandidate === 'repub-dem')
-      mapColors();
-  }*/
+    d3.select('#' + data.id).attr({"fill":data.color});
+  }
   
 }
 
@@ -240,22 +237,26 @@ socket.on('serverToClient', function(data){
 
 $('.trump').click(function() {
   currentCandidate = 'trump';
-
+  mapColors();
 });
 
 $('.cruz').click(function() {
   currentCandidate = 'cruz';
+  mapColors();
 });
 
 $('.sanders').click(function() {
   currentCandidate = 'sanders';
+  mapColors();
 });
 
 $('.clinton').click(function() {
   currentCandidate = 'clinton';
+  mapColors();
 });
 
 $('.repub-dem').click(function() {
   currentCandidate = 'repub-dem';
+  mapColors();
 });
 

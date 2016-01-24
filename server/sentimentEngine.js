@@ -31,8 +31,6 @@ module.exports = {
 
 					if(sentimentResponse.sent !== 0)
 						callback(sentimentResponse);
-					else
-						console.log("Returned zero")
 				});
 			});
 		});

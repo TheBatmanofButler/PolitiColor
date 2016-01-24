@@ -83,11 +83,11 @@ module.exports = {
 
 			// Executes all the nessecary METADATA adjustments to republican or democratic
 			if (subject == 'trump' || subject == 'cruz') {
-
+				sentimentResponse.subj[0] = 'republican';
 				updateSubjData(state, 'republican', sentiment, sentimentResponse, callback)
 			}
 			if (subject == 'clinton' || subject == 'sanders') {
-
+				sentimentResponse.subj[0] = 'democrat';
 				updateSubjData(state, 'democrat', sentiment, sentimentResponse, callback)
 			}
 		}
