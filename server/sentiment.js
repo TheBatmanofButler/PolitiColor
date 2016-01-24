@@ -6,7 +6,6 @@
 	Description: Sentiment
 **/ 
 
-var sentiment = require('sentiment');
 var bayes = require('bayes');
 var fs = require('fs');
 var jsonfile = require('jsonfile');
