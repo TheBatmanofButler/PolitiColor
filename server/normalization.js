@@ -100,7 +100,7 @@ module.exports = {
 				.replace(notContractionRegex, function(match) { return " not"})
 				.replace(haveContractionRegex, function(match) {return " have"})
 				.replace(willContractionRegex, function(match) {return " will"})
-				.replace(/[^\x00-\x7F]/g, "");
+				.replace(/[^\x00-\x7F]/g, "")
 				.replace('\'', '')
 				.replace('republican party', 'republican_party')
 				.replace('democratic party', 'democratic_party')

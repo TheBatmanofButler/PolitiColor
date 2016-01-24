@@ -26,7 +26,7 @@ function sentimentEngineIterator(tweetIsolatesFile) {
 	var tweets = JSON.parse(fs.readFileSync(tweetIsolatesFile, 'utf8'));
 	for (tweet in tweets) {
 		sentimentEngine.processTweet({'tweet': tweet}, function(response) {
-			console.log(response.tweet, 222);
+			console.log(response.tweet);
 			ready4WebApp[response.tweet] = '';
 		});
 	}
@@ -35,3 +35,4 @@ function sentimentEngineIterator(tweetIsolatesFile) {
 	});
 }
 sentimentEngineIterator('../machineLearningArtifacts/tweetIsolates.json');
+// twitterGarbage2sentimentEngine('../machineLearningArtifacts/tweets1.json');
