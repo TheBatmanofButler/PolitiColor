@@ -39,6 +39,7 @@ module.exports = {
 		revivedClassifier.categorize(response);
 
 		console.log(revivedClassifier);
+		callback();
 	}
 }
 
