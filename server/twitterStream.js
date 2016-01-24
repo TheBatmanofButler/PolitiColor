@@ -3,6 +3,8 @@
 // "app authentication only" twitter API
 
 var Twit = require('twit');
+
+
 var states = {
 	Alabama: 'AL',
     Alaska: 'AK',
