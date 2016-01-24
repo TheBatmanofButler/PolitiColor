@@ -72,35 +72,23 @@ module.exports = {
 									tweets.push(tweetObj);
 								})
 							    .on("end", function() {
-							        var stream5 = fs.createReadStream('stream5.csv');
-									var csvStream5 = csv()
-									    .on("data", function(data) {
-									    	var tweetObj = {
-									    		tweet: data[0],
-												state: data[1]
-											}
-											tweets.push(tweetObj);
-										})
-									    .on("end", function() {
-									        //execute the next function with the output array
-									        console.log("done with 5")
-									        setInterval(function() {
-									        	console.log(tweets.length)
+							        //execute the next function with the output array
+							        console.log("done with 4")
+							        setInterval(function() {
+							        	console.log(tweets.length)
 
-									        	var data = tweets.pop();
+							        	var data = tweets.pop();
 
-									        	var responseObj = {
-													tweet: data.tweet,
-													loc: {
-														state: data.state
-													}, 
-													sent: null,
-													subj: null
-												}
-									        	callback(responseObj)
-									        }, 500);
-									    });
-									stream5.pipe(csvStream5);
+							        	var responseObj = {
+											tweet: data.tweet,
+											loc: {
+												state: data.state
+											}, 
+											sent: null,
+											subj: null
+										}
+							        	callback(responseObj)
+							        }, 500);
 							    });
 							stream4.pipe(csvStream4);
 					    });
