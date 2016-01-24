@@ -58,18 +58,24 @@ $("#file-input").change( function(e) {
 // pulls down next tweet from tweets object
 function pullNewTweet(boolValue) {
 
-	var tweet = Object.keys(tweets)[tweetNum];
-
-	if (boolValue == null) {
-		$("#tweet").text(tweet);
-	}
-	else {
-		tweets[tweet] = boolValue;
-
-		tweetNum++;
+	if (tweetNum < (Object.keys(tweets)).length-1) {
 
 		var tweet = Object.keys(tweets)[tweetNum];
-		$("#tweet").text(tweet);
 
+		if (boolValue == null) {
+			$("#tweet").text(tweet);
+		}
+		else {
+			tweets[tweet] = boolValue;
+
+			tweetNum++;
+
+			var tweet = Object.keys(tweets)[tweetNum];
+			$("#tweet").text(tweet);
+
+		}
+	}
+	else {
+		alert("JSON file complete! Now fuck off.")
 	}
 }
