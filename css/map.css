@@ -48,12 +48,12 @@ path {
   font-family: Raleway; 
   font-size: 2vw;
   float:left;
-  width: 22%;
+  width: 23%;
   height: 40vw;
-  padding: 10px;
+  padding: .5%;
   background-color: #2E2E2E;
   border-radius: 15px;
-  margin-left: 1vw;
+  margin-left: 1%;
   color: white;
 }
 
