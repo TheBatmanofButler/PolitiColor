@@ -17,28 +17,16 @@ var socket = require('./socket');
 
 function pipeline() {
 	twitterStream.startStream(function(twitterResponse) {
+		console.log('startStream');
 
 		sentimentEngine.processTweet(twitterResponse, function(sentimentReponse) {
+			console.log('processTweet');
 
 			rollingAvgServer.updateSubject(sentimentReponse, function(averageResponse, tweetResponse) {
-				socket.emitData(averageResponse);
+				console.log('updateSubject');
 			});
 
 		});
 
 	});
 }
-
-/**
-	Final response:
-
-	obj = {
-		tweet: "",
-		loc: {
-			state: ''
-		},
-		sent: 00,
-		subj: ['']
-	}
-
-**/

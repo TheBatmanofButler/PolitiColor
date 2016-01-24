@@ -148,9 +148,9 @@ module.exports = {
 					var stateCode = states[normalizedLocation[i]];
 
 					if (stateCode) {
-						
 						var responseObj = {
-							location: {
+							tweet: tweetText,
+							loc: {
 								state: stateCode
 							}, 
 							sent: null,

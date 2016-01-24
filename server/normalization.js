@@ -49,7 +49,7 @@ var stringMap = {
 	'gr8': 'great',
 	'lol': 'laugh out loud',
 	'!!':'!',
-	'never':'not',
+	'never':'not'
 }	
 
 //Matches all white space
@@ -117,7 +117,8 @@ module.exports = {
 				.replace('art of the deal', 'art_of_the_deal')
 				.replace('#','')
 				.replace('@', 'at ')
-				.replace('tea party', 'teaparty');
+				.replace('tea party', 'teaparty')
+				.replace('rt', '');
 
 
 		var words = tweet.split(' ');

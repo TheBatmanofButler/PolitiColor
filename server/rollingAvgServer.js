@@ -11,7 +11,7 @@ Packet Object: Object format that is received from Sentiment Engine.  Object for
 				to pass onto the Front End
 {
 	loc: Location Object	The Location object which stores information about location
-	subj: String			Is candidate name or "Democrat" or "Republican"
+	subj: Array[String]		Is candidate name or "Democrat" or "Republican"
 	sent: Num				Number between [0,1)  Represents rolling sentiment value average
 	tweet: String 			The processed tweet from the Sentiment Engine (not used)
 }
@@ -40,7 +40,7 @@ LocationSentiment Object: Object that stores the sentiments tied to a location a
 */
 
 // Max sentimentResponses Array[Num] size
-var MAX_SENTIMENT_RESPONSES = 5;
+var MAX_SENTIMENT_RESPONSES = 1000;
 
 
 // Subject Objects
@@ -64,10 +64,35 @@ var METADATA = {
 //sentimentResponse: Packet Object
 function updateSubject(sentimentResponse, callback) {
 	// Unpack sentiment Response
+	var subjectArray = sentimentResponse['subj'];
 	var state = sentimentResponse['loc']['state'];
-	var subject = sentimentResponse['subj'];
 	var sentiment = sentimentResponse['sent'];
 
+	for (var i in subjectArray) {
+		var subject = subjectArray[i];
+
+		console.log(subject);
+
+		// Executes all the nessecary METADATA adjustments to the subject in question
+		updateSubjData(state, subject, sentiment, callback)
+
+		// Executes all the nessecary METADATA adjustments to republican or democratic
+		if (subject == 'trump' || subject == 'cruz') {
+
+			console.log('republican')
+
+			updateSubjData(state, 'republican', sentiment, callback)
+		}
+		if (subject == 'clinton' || subject == 'sanders') {
+
+			console.log('democrat')
+
+			updateSubjData(state, 'democrat', sentiment, callback)
+		}
+	}
+}
+
+function updateSubjData(state, subject, sentiment, callback) {
 	// if the _locName_ key for the state does not already exist, make it so
 	if (!METADATA[subject][state]){
 		var newLocationSentiment = {
@@ -82,11 +107,10 @@ function updateSubject(sentimentResponse, callback) {
 
 	// unpack relevant data from the LocnationSentiment Object
 	var subjLocSent = METADATA[subject][state];
+
 	var subjLocSent_AvgResponse = subjLocSent['avgResponse'];
 	var subjLocSent_CurrResponse = subjLocSent['currResponse'];
 	var subjLocSent_SentResponses = subjLocSent['sentimentResponses'];
-
-	console.log(subjLocSent_SentResponses);
 
 	// now, deposit the newest sentiment response into the LocationSentiment for this Subject
 	if (subjLocSent_SentResponses.length > MAX_SENTIMENT_RESPONSES) {
@@ -131,27 +155,17 @@ function arrayAvg(array) {
 // test first data in clean database
 var sent1 = {
 	loc: {state: 'NY'},
-	subj: 'cruz',
+	subj: ['cruz'],
 	sent: -0.45
 }
 
 
+
 updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(METADATA['cruz'])});
+//updateSubject(sent1, (data) => {console.log(METADATA['cruz'])});
+//updateSubject(sent1, (data) => {console.log(METADATA['republican'])});
+//updateSubject(sent1, (data) => {console.log(METADATA['democrat'])});
 */
-
-
 
 
 
