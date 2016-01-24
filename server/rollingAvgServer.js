@@ -75,10 +75,10 @@ function updateSubject(sentimentResponse, callback) {
 	// Executes all the nessecary METADATA adjustments to republican or democratic
 	// NOOOOOOOOOOOOO CALLBACK
 	if (subject == 'trump' || subject == 'cruz') {
-		updateSubjData(state, 'republican', sentiment, dummy)
+		updateSubjData(state, 'republican', sentiment, callback)
 	}
 	if (subject == 'clinton' || subject == 'sanders') {
-		updateSubjData(state, 'democrat', sentiment, dummy)
+		updateSubjData(state, 'democrat', sentiment, callback)
 	}
 }
 

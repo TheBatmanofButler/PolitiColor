@@ -150,7 +150,8 @@ module.exports = {
 					if (stateCode) {
 						
 						var responseObj = {
-							location: {
+							tweet: tweetText,
+							loc: {
 								state: stateCode
 							}, 
 							sent: null,

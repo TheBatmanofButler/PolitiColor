@@ -28,3 +28,17 @@ function pipeline() {
 
 	});
 }
+
+/**
+	Final response:
+
+	obj = {
+		tweet: "",
+		loc: {
+			state: ''
+		},
+		sent: 00,
+		subj: ['']
+	}
+
+**/
