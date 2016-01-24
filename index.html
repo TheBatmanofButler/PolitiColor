@@ -20,6 +20,7 @@
   <body>
     <div class ="title"> PolitiColor</div>
     <div class ="subtitle"> PolitiColor maps Twitter sentiment data in real-time for the 2016 Presidential Election </div>
+    <div class="buttons"></div>
     <div class='map-container'></div>
     <div class ="container" > 
       <p class='header'> What is Politicolor? </p> 
@@ -66,7 +67,16 @@
 
       <div class = "textboxes">
         <p>
-            
+            PolitiColor relies on the sentiment engine that powers the natural language processing backend. Here, we break down the engine pipeline to get a better look at what is happening under the hood. NLP here consists of a series of normalization parameters, followed by keyword tagging, and finally sentiment calculation.
+            <br>
+            <br>
+            Tweets come in from Twitter queries that is related to the political information we are looking for. The Twitter query alone acts as our first filter, ensuring that we are not picking up the daily tweets irrelevant to politics. Each tweet is then filtered against readable location information that can be converted into a state. This leaves about 50 thousand tweets per hour at its peak. 
+            <br>
+            <br>
+            Each tweet is then passed into the sentiment engine. First, the engine normalizes the tweets by replacing slang and emoticons where appropriate, and tagging words that need to be grouped in order to be relevant (e.g. 'Tea-Party' vs 'Tea Party'). Next, the engine looks for keywords in the tweet that may be relevant to the data points we are looking for, and tags the tweet with any keywords it finds. Finally, the tweet is broken down into parts of speech and passed into a sentiment calculator that was manually trained with about 30 thousand tweets. The sentiment calculator converts the tweet into a number - a sentiment - related to the keywords that were tagged previously.
+            <br>
+            <br>
+            At this point, the data is considered processed and the tweet information is passed along to the aggregator for further analysis.
         </p>
            
       </div> 
