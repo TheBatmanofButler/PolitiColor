@@ -6,6 +6,7 @@
     <!-- FONTS -->
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 
     <!--CSS for various panels, one per page-->
 
@@ -13,12 +14,14 @@
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script src="https://d3js.org/queue.v1.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
+    
     <script src="http://52.90.127.98:6010/socket.io/socket.io.js"></script>
+
   <head>
   <body>
 
-    <div class ="five" style ="background-color: red; font-size: 40px; font-family: Raleway"> <img src= "logo.png"> </img></div>
+    <div class ="five" style ="background-color: #585858; font-size: 3vw; font-family: Roboto Slab; color: white; padding: 1vw"> PolitiColor</div>
     
     <script src="JS/us.js"></script>
     <script src="JS/congress.js"></script>
@@ -26,10 +29,10 @@
 
     <div class ="five" style="height: 50px;"> </div>
     <div class ="headers" > 
-      <p><i> What is PolitiColor?</i></p> 
+      <p> What is PolitiColor?</p> 
       </div> 
       <div><img src= "repubdem.png" style="width = 50%; float:right;"> </img></div>
-    <div class = "textboxes" style="width:50%; height=400px;">
+    <div class = "textboxes" style="width:50%; height=400px; color: black; margin-top:13%;">
 
            
       <p> PolitiColor is a site(?) that uses twitter's API and D3 to create chroropleth maps that portray the genenral sentiment of twitter users in that state or election district.</p> 
@@ -38,33 +41,45 @@
       </p>
      
     </div> 
-    <div style = "font-size: 40px; font-family: Raleway; background-color: red;"> 
-      <p><i> How PolitiColor works</i></p> 
+    <div style = "font-size: 40px; font-family: Roboto Slab; background-color: #585858; padding: 10px;color: white;;"> 
+      <p> How PolitiColor works</p> 
     </div>  
     <div> <img src="workflow.png" style="align: middle; width: 100%;"></img> </div>
     <div class = "quad1" id ="quad2">
-      <p><i>twitter</i></p>
+      <p style = "font-family: Roboto Slab; font-size: 2.2vw;">twitter</p>
       <p> twitter api etc get data </p> 
       </div>
     <div class = "quad1">
-      <p><i>the sentiment engine</i></p>
+      <p style = "font-family: Roboto Slab; font-size: 2.2vw;">the sentiment engine</p>
       <p> A romantic name for an unromantic subject, the sentiment engine uses a homebrewed(change word?) algorithm using (shit whats the thing called?) to assign values to positive and negatively connotated words. </p> 
       </div>
     </div>
     <div class = "quad1" id="quad2">
-      <p><i>the server</i></p>
+      <p style = "font-family: Roboto Slab; font-size: 2.2vw;">the server</p>
       <p> The server takes all the individual numbers generated from the tweets and crunches them into a single number representative of the state and voting district, and then assigns a candidate based on the number.</p> 
     </div>
     <div class = "quad1">
-    <p><i>the chroropleth map</i></p>
+    <p style = "font-family: Roboto Slab; font-size: 2.2vw;">the chroropleth map</p>
       <p> A chroropleth map is generated based on the previously generated numbers, providing an easily understood data visualization.</p> 
     </div>
 
     <div class ="headers" > 
-      <p><i> The Sentiment Engine explained</i></p> 
-      <p style="font-size: 2vw;"> Or, how exactly we parse a tweet</p> 
-      </div> 
-        <div> gotta put the pic about the sentiment engine here </div> 
+      <p> The Sentiment Engine explained</p> </div>
+      <div> <img src="sentimentengine.png" style="align: middle; width: 100%;"></img> </div>
+      <div class = "textboxes" style="width:100%; height=400px; color: black; width: 95%;">
+
+           
+      <p> The Sentiment engine works by normalizing and filtering tweets, putting them in a more usable format.</p> 
+      <p> Then, the cleaned data is analyzed in chunks of words and phrases.</p> 
+      <p> This parsed data is then given a number, which corresponds to a color and candidate. These colors are then displayed on the map of the United States in an easily understandable format.
+      </p>
+      <p> Pretty simple, right? 
+      </p>
+      <p> <i> Wrong. </i>  
+      </p>
+      <p> We built the natural language processing system and algorithm (IS THIS WHAT WE'RE DOING I HAVE NO IDEA HOW TO EXPLAIN IT) from scratch, and EXPLAIN WHY THIS IS DIFFICULT.  
+      </p>
+    </div> 
       
   </body>
 </html>

@@ -27,7 +27,7 @@ function ready(error, us, congress) {
     .scaleExtent([1, 8])
     .on("zoom", zoomed);
 
-  var features = svg.append("g")      
+  var features = svg.append("g");    
     /**features.call(zoom)
     .on("mousedown.zoom", null)
     .on("touchstart.zoom", null)
