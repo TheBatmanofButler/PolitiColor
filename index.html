@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html hidden>
   <head>
     <title>PolitiColor</title>
 
@@ -15,23 +15,16 @@
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script src="https://d3js.org/queue.v1.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
-    
     <script src="http://52.90.127.98:6010/socket.io/socket.io.js"></script>
-
   <head>
   <body>
+    <div class ="title"> PolitiColor</div>
+    <div class ="subtitle"> PolitiColor maps Twitter sentiment data in real-time for the 2016 presidential election </div>
 
-    <div class ="five" style ="background-color: #585858; font-size: 3vw; font-family: Roboto Slab; color: white; padding: 1vw"> PolitiColor</div>
-    
-    <script src="JS/us.js"></script>
-    <script src="JS/congress.js"></script>
-    <script src="JS/map.js"></script>
-
-    <div class ="five" style="height: 50px;"> </div>
     <div class ="headers" > 
       <p> What is PolitiColor?</p> 
       </div> 
-      <div><img src= "repubdem.png" style="width = 50%; float:right;"> </img></div>
+      <div><img src= "img/repubdem.png" style="width = 50%; float:right;"> </img></div>
     <div class = "textboxes" style="width:50%; height=400px; color: black; margin-top:13%;">
 
            
@@ -44,28 +37,36 @@
     <div style = "font-size: 40px; font-family: Roboto Slab; background-color: #585858; padding: 10px;color: white;;"> 
       <p> How PolitiColor works</p> 
     </div>  
+<<<<<<< HEAD
     <div> <img src="workflow.png" style="align: middle; width: 100%;"></img> </div>
     <div class = "quad1" id ="quad2" style="margin-left ">
       <p style = "font-family: Roboto Slab; font-size: 2.2vw; ">twitter</p>
+=======
+    <div> <img src="img/workflow.png" style="align: middle; width: 100%;"></img> </div>
+    <div class = "quad1" id ="quad2">
+      <p class='quadTitle'>The Hose</p>
+>>>>>>> 7fe9347fe93ce2b0cdb5ef2b383223603c97534c
       <p> twitter api etc get data </p> 
       </div>
     <div class = "quad1">
-      <p style = "font-family: Roboto Slab; font-size: 2.2vw;">the sentiment engine</p>
+      <p class='quadTitle'>The Engine</p>
       <p> A romantic name for an unromantic subject, the sentiment engine uses a homebrewed(change word?) algorithm using (shit whats the thing called?) to assign values to positive and negatively connotated words. </p> 
       </div>
     </div>
     <div class = "quad1" id="quad2">
-      <p style = "font-family: Roboto Slab; font-size: 2.2vw;">the server</p>
+      <p class='quadTitle'>The Server</p>
       <p> The server takes all the individual numbers generated from the tweets and crunches them into a single number representative of the state and voting district, and then assigns a candidate based on the number.</p> 
     </div>
     <div class = "quad1">
-    <p style = "font-family: Roboto Slab; font-size: 2.2vw;">the chroropleth map</p>
+    <p class='quadTitle'> The Map</p>
       <p> A chroropleth map is generated based on the previously generated numbers, providing an easily understood data visualization.</p> 
     </div>
 
     <div class ="headers" > 
       <p> The Sentiment Engine explained</p> </div>
-      <div> <img src="sentimentengine.png" style="align: middle; width: 100%;"></img> </div>
+
+      <img src="img/sentimentengine.png" style="align: middle; width: 100%;"></img> 
+
       <div class = "textboxes" style="width:100%; height=400px; color: black; width: 95%;">
 
            
@@ -80,6 +81,8 @@
       <p> We built the natural language processing system and algorithm (IS THIS WHAT WE'RE DOING I HAVE NO IDEA HOW TO EXPLAIN IT) from scratch, and EXPLAIN WHY THIS IS DIFFICULT.  
       </p>
     </div> 
-      
+    <script src="JS/us.js"></script>
+    <script src="JS/congress.js"></script>
+    <script src="JS/map.js"></script>
   </body>
 </html>
