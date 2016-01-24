@@ -149,13 +149,18 @@ module.exports = {
 
 					if (stateCode) {
 						
-						var responseObj = {
+						/*var responseObj = {
 							location: {
 								state: stateCode
 							}, 
 							sent: null,
 							subj: null
-						}
+						}*/
+
+						var responseObj = {
+							tweet: tweetText,
+							location: stateCode
+						};
 
 						callback(responseObj);
 					}
