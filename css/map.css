@@ -66,7 +66,7 @@ background-color: #585858;
 
 .headers{
   font-size: 40px; 
-  font-family: Raleway; 
+  font-family: Roboto Slab; 
   margin-top:50px; 
   float: left; 
   background-color: #585858;
@@ -80,7 +80,7 @@ background-color: #585858;
   font-family: Raleway; 
   font-size: 2vw;
   margin: 3px;
-  margin-top: 15px;
+  margin-top: 2vw;
   color: white;
 
 }
