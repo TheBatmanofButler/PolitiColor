@@ -26,7 +26,7 @@ function bayesClassifier() {
 
 	jsonfile.writeFile('bayesClassifier.json', stateJson, function (err) {
 		console.error(err)
-	})
+	});
 
 }
 
@@ -34,13 +34,11 @@ module.exports = {
 
 	process: function(response, callback) {
 		// callback(response);
-		var stateJson = JSON.parse(fs.readFileSync('bayesClassifier.json', 'utf8'));
-		var revivedClassifier = bayes.fromJson(stateJson)
-		revivedClassifier.categorize(response);
+		// var stateJson = JSON.parse(fs.readFileSync('bayesClassifier.json', 'utf8'));
+		// var revivedClassifier = bayes.fromJson(stateJson)
+		// revivedClassifier.categorize(response);
 
-		console.log(revivedClassifier);
-		callback();
+		// console.log(revivedClassifier);
+		callback(response);
 	}
 }
-
-bayesClassifier();
