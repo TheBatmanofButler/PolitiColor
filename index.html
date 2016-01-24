@@ -21,23 +21,22 @@
     <div class ="title"> PolitiColor</div>
     <div class ="subtitle"> PolitiColor maps Twitter sentiment data in real-time for the 2016 presidential election </div>
 
-    <div class ="headers" > 
-      <p> What is PolitiColor?</p> 
-      </div> 
-      <div><img src= "img/repubdem.png" style="width = 50%; float:right;"> </img></div>
-    <div class = "textboxes" style="width:50%; height=400px; color: black; margin-top:13%;">
-
-           
+    <div class ="container" > 
+      <p class='header'> What is Politicolor? </p> 
+    </div> 
+    <div class='repubdem'>
+      <img src= "img/repubdem.png" style="width = 50%; float:right;"> </img>
+    </div>
+    <div class = "textboxes" style="width:50%; height=400px; color: black; margin-top:13%;">           
       <p> PolitiColor is a site(?) that uses twitter's API and D3 to create chroropleth maps that portray the genenral sentiment of twitter users in that state or election district.</p> 
       <p> By using natural language processing and (WHAT ARE WE USING), tweets are parsed in terms of their sentiment toward the candiadate or political party that they write about.</p> 
       <p> For example: if you, in Pennsylvania, write "surpised and pleased sanders is doing really well in New Hampshire #feelthebern," that gets parsed and affects Pennsylvania's display color on the map. 
       </p>
-     
     </div> 
-    <div style = "font-size: 40px; font-family: Roboto Slab; background-color: #585858; padding: 10px;color: white;;"> 
+    <div class='container'> 
       <p> How PolitiColor works</p> 
     </div>  
-    <div> <img src="img/workflow.png" style="align: middle; width: 100%;"></img> </div>
+    <div> <img src="img/workflow.png"></img> </div>
     <div class = "quad1" id ="quad2">
       <p class='quadTitle'>The Hose</p>
       <p> twitter api etc get data </p> 
@@ -56,12 +55,12 @@
       <p> A chroropleth map is generated based on the previously generated numbers, providing an easily understood data visualization.</p> 
     </div>
 
-    <div class ="headers" > 
-      <p> The Sentiment Engine explained</p> </div>
+    <div class='container'> 
+      <p class='header'> The Sentiment Engine explained</p> </div>
 
-      <img src="img/sentimentengine.png" style="align: middle; width: 100%;"></img> 
+      <img src="img/sentimentengine.png"></img> 
 
-      <div class = "textboxes" style="width:100%; height=400px; color: black; width: 95%;">
+      <div class = "textboxes">
 
            
       <p> The Sentiment engine works by normalizing and filtering tweets, putting them in a more usable format.</p> 
