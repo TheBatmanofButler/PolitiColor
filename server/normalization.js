@@ -65,7 +65,7 @@ var thousandRegex =/([0-9]+)k/g;
 var atRegex=/@([a-z]+)/g;
 
 //Matches url
-var urlRegex = /(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)/g
+var urlRegex = /https?:\/\/[\w]+.[\w|\/]+((.)[\w]+)+/g
 
 //Matches characters that repeat more than 2 times 
 var repeatRegex = /(.)\1{2,}/g;
@@ -99,6 +99,7 @@ module.exports = {
 				.replace(notContractionRegex, function(match) { return " not"})
 				.replace(haveContractionRegex, function(match) {return " have"})
 				.replace(willContractionRegex, function(match) {return " will"})
+				.replace(/[^\x00-\x7F]/g, "")
 				.replace('\'', '')
 				.replace('republican party', 'republican_party')
 				.replace('democratic party', 'democratic_party')

@@ -19,67 +19,67 @@
   <head>
   <body>
     <div class ="title"> PolitiColor</div>
-    <div class ="subtitle"> PolitiColor maps Twitter sentiment data in real-time for the 2016 presidential election </div>
-
-    <div class ="headers" > 
-      <p> What is PolitiColor?</p> 
-      </div> 
-      <div><img src= "img/repubdem.png" style="width = 50%; float:right;"> </img></div>
-    <div class = "textboxes" style="width:50%; height=400px; color: black; margin-top:13%;">
-
-           
-      <p> PolitiColor is a site(?) that uses twitter's API and D3 to create chroropleth maps that portray the genenral sentiment of twitter users in that state or election district.</p> 
-      <p> By using natural language processing and (WHAT ARE WE USING), tweets are parsed in terms of their sentiment toward the candiadate or political party that they write about.</p> 
-      <p> For example: if you, in Pennsylvania, write "surpised and pleased sanders is doing really well in New Hampshire #feelthebern," that gets parsed and affects Pennsylvania's display color on the map. 
-      </p>
-     
+    <div class ="subtitle"> PolitiColor maps Twitter sentiment data in real-time for the 2016 Presidential Election </div>
+    <div class="buttons"></div>
+    <div class='map-container'></div>
+    <div class ="container" > 
+      <p class='header'> What is Politicolor? </p> 
     </div> 
-    <div style = "font-size: 40px; font-family: Roboto Slab; background-color: #585858; padding: 10px;color: white;;"> 
+    <div class='repubdem'>
+      <img src= "img/repubdem.png" style="width = 50%; float:right;"> </img>
+    </div>
+    <div class = "textboxes" style="width:50%; height=400px; color: black; margin-top:13%;">           
+      <p> PolitiColor is an app that converts tweets into sentiment information on the 2016 Presidential Election. Using a chroropleth map, Twitter opinions expressed in tweets are color coded and mapped by state. Users can quickly view sentiment data on their favorite candidates, or on general sentiment between the two major parties. When Twitter opinion in a state swings in favor of a candidate, their color appears more prominantly; if the opposite occurs, the opposing color is displayed.
+      <br>
+      <br>
+      PolitiColor is just in time for election season. With campaigns and the country gearing up for the first caucuses and primaries, Politicolor provides a unique outlet for information that is difficult to gather and arguably more accurate than the tried and true method of polls. Politicolor is real time and digital; it can be accessed everywhere and is constantly updating. As a result, even the most tireless of political junkies can get their fill of data and analytics. 
+
+      </p>
+    </div> 
+    <div class='container'> 
       <p> How PolitiColor works</p> 
     </div>  
-<<<<<<< HEAD
-    <div> <img src="workflow.png" style="align: middle; width: 100%;"></img> </div>
-    <div class = "quad1" id ="quad2" style="margin-left ">
-      <p style = "font-family: Roboto Slab; font-size: 2.2vw; ">twitter</p>
-=======
-    <div> <img src="img/workflow.png" style="align: middle; width: 100%;"></img> </div>
-    <div class = "quad1" id ="quad2">
+    <div> 
+      <img src="img/workflow.png"></img>
+    </div>
+    <div class='quad1'>
       <p class='quadTitle'>The Hose</p>
->>>>>>> 7fe9347fe93ce2b0cdb5ef2b383223603c97534c
-      <p> twitter api etc get data </p> 
-      </div>
+      <p> Twitter is in many ways the heartbeat of the population. Where most people see social media, Politicolor sees data. By tracking thousands of tweets per hour, Politicolor can one-up polls and get a more accurate representation of how people actually feel. </p> 
+    </div>
     <div class = "quad1">
       <p class='quadTitle'>The Engine</p>
-      <p> A romantic name for an unromantic subject, the sentiment engine uses a homebrewed(change word?) algorithm using (shit whats the thing called?) to assign values to positive and negatively connotated words. </p> 
+      <p> The Engine is the centerpiece of Politicolor. To function, Politicolor needs to convert the barely-english of Twitter into something readable for machines. The Engine, composed of a unique machine learning POS algorithm, does just that.</p> 
       </div>
     </div>
     <div class = "quad1" id="quad2">
-      <p class='quadTitle'>The Server</p>
-      <p> The server takes all the individual numbers generated from the tweets and crunches them into a single number representative of the state and voting district, and then assigns a candidate based on the number.</p> 
+      <p class='quadTitle'>The Calculator</p>
+      <p> Each individual tweet is a small drop in a huge ocean; to see real data connections, Politicolor uses The Calculator to aggregate the data and draw out meaningful information.</p> 
     </div>
     <div class = "quad1">
     <p class='quadTitle'> The Map</p>
-      <p> A chroropleth map is generated based on the previously generated numbers, providing an easily understood data visualization.</p> 
+      <p> There is a lot of information being distilled and displayed very rapidly, so design and polish must be the watchwords of Politicolor. The Map above, built to be easily understood, works to draw the user in.</p> 
     </div>
 
-    <div class ="headers" > 
-      <p> The Sentiment Engine explained</p> </div>
+    <div class='container'> 
+      <p class='header'> The Sentiment Engine explained</p> </div>
 
-      <img src="img/sentimentengine.png" style="align: middle; width: 100%;"></img> 
+      <img src="img/sentimentengine.png"></img> 
 
-      <div class = "textboxes" style="width:100%; height=400px; color: black; width: 95%;">
-
+      <div class = "textboxes">
+        <p>
+            PolitiColor relies on the sentiment engine that powers the natural language processing backend. Here, we break down the engine pipeline to get a better look at what is happening under the hood. NLP here consists of a series of normalization parameters, followed by keyword tagging, and finally sentiment calculation.
+            <br>
+            <br>
+            Tweets come in from Twitter queries that is related to the political information we are looking for. The Twitter query alone acts as our first filter, ensuring that we are not picking up the daily tweets irrelevant to politics. Each tweet is then filtered against readable location information that can be converted into a state. This leaves about 50 thousand tweets per hour at its peak. 
+            <br>
+            <br>
+            Each tweet is then passed into the sentiment engine. First, the engine normalizes the tweets by replacing slang and emoticons where appropriate, and tagging words that need to be grouped in order to be relevant (e.g. 'Tea-Party' vs 'Tea Party'). Next, the engine looks for keywords in the tweet that may be relevant to the data points we are looking for, and tags the tweet with any keywords it finds. Finally, the tweet is broken down into parts of speech and passed into a sentiment calculator that was manually trained with about 30 thousand tweets. The sentiment calculator converts the tweet into a number - a sentiment - related to the keywords that were tagged previously.
+            <br>
+            <br>
+            At this point, the data is considered processed and the tweet information is passed along to the aggregator for further analysis.
+        </p>
            
-      <p> The Sentiment engine works by normalizing and filtering tweets, putting them in a more usable format.</p> 
-      <p> Then, the cleaned data is analyzed in chunks of words and phrases.</p> 
-      <p> This parsed data is then given a number, which corresponds to a color and candidate. These colors are then displayed on the map of the United States in an easily understandable format.
-      </p>
-      <p> Pretty simple, right? 
-      </p>
-      <p> <i> Wrong. </i>  
-      </p>
-      <p> We built the natural language processing system and algorithm (IS THIS WHAT WE'RE DOING I HAVE NO IDEA HOW TO EXPLAIN IT) from scratch, and EXPLAIN WHY THIS IS DIFFICULT.  
-      </p>
+      </div> 
     </div> 
     <script src="JS/us.js"></script>
     <script src="JS/congress.js"></script>
