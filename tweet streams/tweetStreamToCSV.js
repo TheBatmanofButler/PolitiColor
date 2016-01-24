@@ -3,7 +3,8 @@
 // "app authentication only" twitter API
 
 var Twit = require('twit');
-
+var fs = require('fs');
+var csv = require('fast-csv');
 
 var states = {
 	Alabama: 'AL',
@@ -126,44 +127,38 @@ var toTrack = {
 	language: 'en'
 };
 
+
+
 var numTweets = 1;
 
+var csvStream = csv.createWriteStream({headers: true});
+var writableStream = fs.createWriteStream("TWEETDATA.csv");
 
+csvStream.pipe(writableStream);
 
+var stream = T.stream('statuses/filter', toTrack);
 
-module.exports = {
-	startStream: function(callback) {
-		var stream = T.stream('statuses/filter', toTrack);
+stream.on('tweet', function(tweet) {
+	var parsedTweet = JSON.parse(JSON.stringify(tweet))
+	var tweetText = parsedTweet.text;
+	var userLocation = parsedTweet.user.location;
 
-		stream.on('tweet', function(tweet) {
-			var parsedTweet = JSON.parse(JSON.stringify(tweet))
-			var tweetText = parsedTweet.text;
-			var userLocation = parsedTweet.user.location;
+	if (userLocation !== null) {
+		var normalizedLocation = userLocation.replace(/\s/g, '');;
+		normalizedLocation = normalizedLocation.split(',');
 
-			if (userLocation !== null) {
-				var normalizedLocation = userLocation.replace(/\s/g, '');;
-				normalizedLocation = normalizedLocation.split(',');
+		for (var i in normalizedLocation) {
+			var stateCode = states[normalizedLocation[i]];
 
-				for (var i in normalizedLocation) {
-					var stateCode = states[normalizedLocation[i]];
-
-					if (stateCode) {
-						var responseObj = {
-							tweet: tweetText,
-							loc: {
-								state: stateCode
-							}, 
-							sent: null,
-							subj: null
-						}
-
-						callback(responseObj);
-					}
-				}
+			if (stateCode) {
+				numTweets++;
+				csvStream.write({'tweet': tweetText, 'location': stateCode});
 			}
-		});
+		}
 	}
-}
+
+	if (numTweets % 100 == 0) { console.log(numTweets); }
+});
 
 //writer.end()
 

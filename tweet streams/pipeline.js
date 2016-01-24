@@ -16,17 +16,31 @@ var socket = require('./socket');
 
 
 function pipeline() {
-	twitterStream.startStream(function(twitterResponse) {
-		console.log('startStream');
+	twitterStream.startStream(function(twitterResponse) { 
 
 		sentimentEngine.processTweet(twitterResponse, function(sentimentReponse) {
-			console.log('processTweet');
 
-			rollingAvgServer.updateSubject(sentimentReponse, function(averageResponse, tweetResponse) {
-				console.log('updateSubject');
+			rollingAvgServer.updateSubject(sentimentReponse, function(averageResponse) {
+
+				socket.emitData(averageResponse);
 			});
 
 		});
 
 	});
 }
+
+pipeline();
+/**
+	Final response:
+
+	obj = {
+		tweet: "",
+		loc: {
+			state: ''
+		},
+		sent: 00,
+		subj: ['']
+	}
+
+**/
