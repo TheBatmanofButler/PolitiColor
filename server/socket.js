@@ -23,14 +23,14 @@ function testData() {
 	var subjList = ['trump', 'sanders', 'cruz', 'clinton', 'democrat', 'republican']
 		
 	var index = Math.floor(Math.random()*subjList.length);
-	var subj = subjList[index];
+	var subj = [subjList[index]];
 
 	var dummyData = {
 	  loc: {
 	    state: Math.floor(Math.random() * 51) + ""
 	  }, 
-	  sent: Math.random(),
-	  subj: subj 
+	  sent: Math.random()*2 - 1,
+	  subj: subj
 	}
 
 	module.exports.emitData(dummyData);

@@ -152,15 +152,23 @@ var stateToNum = {
   WY:"w13"
 }
 
-var currentCandidate = "";
+var currentCandidate = "repub-dem";
 
 function getIDFromTweet(tweetObj) {
   //return stateToNum[tweetObj.loc.state];
   return "w" + tweetObj.loc.state;
 }
 
-function getColorFromTweet(tweetObj) {
-  return colorMap[tweetObj.subj] + tweetObj.sent + ")";
+function getColorFromTweet(tweetObj, subject) {
+
+  if(tweetObj.sent < 0) {
+    if(subject === 'democrat' || subject === 'sanders' || subject === 'clinton')
+      return colorMap['trump'] + Math.abs(tweetObj.sent) + ")"
+    else
+      return colorMap['sanders'] + Math.abs(tweetObj.sent) + ")"
+  }
+
+  return colorMap[subject] + tweetObj.sent + ")";
 }
 
 function mapColors() {
@@ -207,13 +215,21 @@ function mapColors() {
 
 function processData(data) {  
   var id = getIDFromTweet(data);
-  var color = getColorFromTweet(data);
+  
   data.id = id;
-  data.color = color;
-  subjToStore[data.subj][id] = data;
 
-  if(data.subj === currentCandidate || currentCandidate === 'repub-dem')
-    mapColors();
+  for(index in data.subj) {
+
+    var subject = data.subj[index]; 
+    var color = getColorFromTweet(data, subject);
+    data.color = color; 
+
+    subjToStore[subject][id] = data;
+
+    if(subject === currentCandidate || currentCandidate === 'repub-dem')
+      mapColors();
+  }
+  
 }
 
 socket.on('serverToClient', function(data){
