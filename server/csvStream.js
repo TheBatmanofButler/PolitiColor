@@ -36,9 +36,12 @@ module.exports = {
 					sent: null,
 					subj: null
 				}
-				console.log(responseObj);
 				callback(responseObj);
 		    })
+		    .on("end", function() {
+		        //execute the next function with the output array
+		        console.log("done")
+		    });
 		 
 		stream.pipe(csvStream);
 

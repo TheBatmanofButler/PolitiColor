@@ -118,25 +118,24 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 	if (subjLocSent_SentResponses.length > MAX_SENTIMENT_RESPONSES) {
 		addSentiment(subjLocSent_SentResponses, subjLocSent_CurrResponse);
 	}
-	else if (subjLocSent_AvgResponse == 0) {
-		// only push if this is not the very first sentiment responses
+	else {
 		subjLocSent_SentResponses.push(subjLocSent_CurrResponse);
-		// Recalculate the average of the sentimentResponses
-		subjLocSent_AvgResponse = arrayAvg(subjLocSent_SentResponses);
-		METADATA[subject][state]['avgResponse'] = subjLocSent_AvgResponse;
 	}
+
+	// Recalculate the average of the sentimentResponses
+	subjLocSent_AvgResponse = arrayAvg(subjLocSent_SentResponses);
 
 	// Set the new currResponse to the newly obtained sentiment
 	subjLocSent_CurrResponse = sentiment;
 
 	// rebuild METADATA for this subject for the new data
-	
+	METADATA[subject][state]['avgResponse'] = subjLocSent_AvgResponse;
 	METADATA[subject][state]['currResponse'] = subjLocSent_CurrResponse;
 	METADATA[subject][state]['sentimentResponses'] = subjLocSent_SentResponses;
 
 	originalResponse.sent = subjLocSent_AvgResponse;
 
-	//console.log(subjLocSent_SentResponses);
+	console.log(subjLocSent_SentResponses);
 	// Finally, return the requested data
 	callback(originalResponse);
 }
