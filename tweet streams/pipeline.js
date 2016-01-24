@@ -6,8 +6,7 @@
 	Description: main pipeline
 */
 
-//var twitterStream = require('./twitterStream') ###############################
-var csvStream = require('./csvStream')
+var twitterStream = require('./twitterStream')
 
 var sentimentEngine = require('./sentimentEngine');
 
@@ -17,8 +16,7 @@ var socket = require('./socket');
 
 
 function pipeline() {
-	//twitterStream.startStream(function(twitterResponse) { ###################################
-	csvStream.startStream(function(twitterResponse) {
+	twitterStream.startStream(function(twitterResponse) { 
 
 		sentimentEngine.processTweet(twitterResponse, function(sentimentReponse) {
 
@@ -26,7 +24,9 @@ function pipeline() {
 
 				socket.emitData(averageResponse);
 			});
+
 		});
+
 	});
 }
 
