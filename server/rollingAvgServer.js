@@ -68,6 +68,21 @@ function updateSubject(sentimentResponse, callback) {
 	var subject = sentimentResponse['subj'];
 	var sentiment = sentimentResponse['sent'];
 
+	// Executes all the nessecary METADATA adjustments to the subject in question
+	// DOES DO THE CALLBACK
+	updateSubjData(state, subject, sentiment, callback)
+
+	// Executes all the nessecary METADATA adjustments to republican or democratic
+	// NOOOOOOOOOOOOO CALLBACK
+	if (subject == 'trump' || subject == 'cruz') {
+		updateSubjData(state, 'republican', sentiment, dummy)
+	}
+	if (subject == 'clinton' || subject == 'sanders') {
+		updateSubjData(state, 'democrat', sentiment, dummy)
+	}
+}
+
+function updateSubjData(state, subject, sentiment, callback) {
 	// if the _locName_ key for the state does not already exist, make it so
 	if (!METADATA[subject][state]){
 		var newLocationSentiment = {
@@ -82,11 +97,10 @@ function updateSubject(sentimentResponse, callback) {
 
 	// unpack relevant data from the LocnationSentiment Object
 	var subjLocSent = METADATA[subject][state];
+
 	var subjLocSent_AvgResponse = subjLocSent['avgResponse'];
 	var subjLocSent_CurrResponse = subjLocSent['currResponse'];
 	var subjLocSent_SentResponses = subjLocSent['sentimentResponses'];
-
-	console.log(subjLocSent_SentResponses);
 
 	// now, deposit the newest sentiment response into the LocationSentiment for this Subject
 	if (subjLocSent_SentResponses.length > MAX_SENTIMENT_RESPONSES) {
@@ -126,6 +140,9 @@ function arrayAvg(array) {
 	return arraySum / array.length;
 }
 
+// Dummy function to intercept unnessecary callback
+var dummy = function(a,b) {}
+
 
 /*
 // test first data in clean database
@@ -149,8 +166,8 @@ updateSubject(sent1, (data) => {console.log(data)});
 updateSubject(sent1, (data) => {console.log(data)});
 updateSubject(sent1, (data) => {console.log(data)});
 updateSubject(sent1, (data) => {console.log(METADATA['cruz'])});
-*/
-
+updateSubject(sent1, (data) => {console.log(METADATA['republican'])});
+updateSubject(sent1, (data) => {console.log(METADATA['democrat'])});*/
 
 
 
