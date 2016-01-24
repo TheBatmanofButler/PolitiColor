@@ -28,11 +28,11 @@ function ready(error, us, congress) {
     .on("zoom", zoomed);
 
   var features = svg.append("g")      
-    features.call(zoom)
+    /**features.call(zoom)
     .on("mousedown.zoom", null)
     .on("touchstart.zoom", null)
     .on("touchmove.zoom", null)
-    .on("touchend.zoom", null);
+    .on("touchend.zoom", null);**/
 
   features.append("defs").append("path")
       .attr("id", "land")
@@ -51,7 +51,7 @@ function ready(error, us, congress) {
     .selectAll("path")
       .data(topojson.feature(us, us.objects.states).features)
     .enter().append("path")
-      .attr("class", function(d) { return 'w' + counter++; })
+      .attr("id", function(d) { return 'w' + counter++; })
       .attr("d", path);
 
   features.append("path")

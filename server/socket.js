@@ -33,7 +33,7 @@ function testData() {
 
 	var dummyData = {
 	  loc: {
-	    state: Math.floor(Math.random() * 50) + ""
+	    state: Math.floor(Math.random() * 51) + ""
 	  }, 
 	  sent: Math.random(),
 	  subj: subj 
@@ -41,7 +41,7 @@ function testData() {
 
 	emitData(dummyData);
 
-	setTimeout(testData, 1);
+	setTimeout(testData, 100);
 }
 
 testData();

@@ -15,26 +15,26 @@ var brill = require('./brill');
 //Sentiment calculator
 var sent = require('./sentiment')
 
-/**
-	Takes in a string, converts into a subject number format
-**/
-function processTweet(tweetObj, callback) {
+module.exports = {
+	/**
+		Takes in a string, converts into a subject number format
+	**/
+	processTweet: function(tweetObj, callback) {
 
-	console.log(tweetObj);
+		console.log(tweetObj);
 
-	norm.process(tweetObj, function(normResponse) {
+		norm.process(tweetObj, function(normResponse) {
 
-		console.log(normResponse);
+			console.log(normResponse);
 
-		brill.process(normResponse, function(brillResponse) {
+			filter.process(normResponse, function(filterResponse) {
 
-			console.log(brillResponse);
+				console.log(filterResponse);
 
-			sent.process(brillResponse, function(sentimentResponse) {
-				callback(sentimentResponse);
+				sent.process(filterResponse, function(sentimentResponse) {
+					callback(sentimentResponse);
+				});
 			});
 		});
-	});
-};
-
-processTweet({tweet:"Hillary Clinton was destroyed by Trump"}, function(response) { return; });
+	}
+}

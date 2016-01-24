@@ -49,7 +49,7 @@ var stringMap = {
 	'gr8': 'great',
 	'lol': 'laugh out loud',
 	'!!':'!',
-	'never':'not'
+	'never':'not',
 }	
 
 //Matches all white space
@@ -104,11 +104,18 @@ module.exports = {
 				.replace('democratic party', 'democratic_party')
 				.replace('general election', 'general_election')
 				.replace('gop frontrunner', 'gop_frontrunner')
+				.replace('democratic frontrunner', 'democratic_frontrunner')
 				.replace('grass roots', 'grass_roots')
 				.replace('donald trump', 'trump')
 				.replace('ted cruz', 'cruz')
 				.replace('hillary clinton', 'clinton')
-				.replace('bernie sanders', 'sanders');
+				.replace('hillary rodham clinton', 'clinton')
+				.replace('email scandal', 'email_scandal')
+				.replace('bernie sanders', 'sanders')
+				.replace('art of the deal', 'art_of_the_deal')
+				.replace('#','')
+				.replace('@', 'at ')
+				.replace('tea party', 'teaparty');
 
 
 		var words = tweet.split(' ');
