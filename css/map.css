@@ -194,3 +194,15 @@ background-color: #585858;
   width: 95%;
   position: justify;
 }
+
+.overlay {
+  left: 28%;
+  top: 30%;
+  position: absolute;
+  background-color: #fff;
+  width: 40%;
+
+  font-family: Raleway;
+  border: 2px solid #000;
+  padding: 1%;
+}
