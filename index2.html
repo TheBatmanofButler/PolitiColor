@@ -18,7 +18,7 @@
   <head>
   <body>
 
-    <div class ="five" style ="background-color: red; font-size: 40px; font-family: Raleway"> <img src= "logo.png"> </img></div>
+    <div class ="five" style ="background-color: #2E2E2E; font-size: 40px; font-family: Raleway"> <img src= "logo.png"> </img></div>
     
     <script src="JS/us.js"></script>
     <script src="JS/congress.js"></script>
@@ -29,7 +29,7 @@
       <p><i> What is PolitiColor?</i></p> 
       </div> 
       <div><img src= "repubdem.png" style="width = 50%; float:right;"> </img></div>
-    <div class = "textboxes" style="width:50%; height=400px;">
+    <div class = "textboxes" style="width:50%; height=400px; color: black; margin-top:13%;">
 
            
       <p> PolitiColor is a site(?) that uses twitter's API and D3 to create chroropleth maps that portray the genenral sentiment of twitter users in that state or election district.</p> 
@@ -38,7 +38,7 @@
       </p>
      
     </div> 
-    <div style = "font-size: 40px; font-family: Raleway; background-color: red; padding: 10px;"> 
+    <div style = "font-size: 40px; font-family: Raleway; background-color: #585858; padding: 10px;color: white;;"> 
       <p><i> How PolitiColor works</i></p> 
     </div>  
     <div> <img src="workflow.png" style="align: middle; width: 100%;"></img> </div>
@@ -65,7 +65,19 @@
       <p style="font-size: 2vw; padding: 10px;"> Or, how exactly we parse a tweet</p> 
       </div> 
       <div> <img src="sentimentengine.png" style="align: middle; width: 100%;"></img> </div>
-        <div> gotta put the pic about the sentiment engine here </div> 
+      <div class = "textboxes" style="width:100%; height=400px; color: black;">
+
+           
+      <p> The Sentiment engine works by normalizing and filtering tweets, putting them in a more usable format.</p> 
+      <p> Then, the cleaned data is analyzed in chunks of words and phrases.</p> 
+      <p> This parsed data is then given a number, which corresponds to a color and candidate
+      </p>
+      <p> Pretty simple, right? 
+      </p>
+      <p> <i> Wrong. </i>  
+      </p>
+     
+    </div> 
       
   </body>
 </html>
