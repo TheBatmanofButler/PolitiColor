@@ -87,9 +87,8 @@ module.exports = {
 									        console.log(tweets.length)
 
 									        // Ramp
-									        for (i=0; i<10000; i++) {
+									        for (var i=0; i<10000; i++) {
 									        	var data = tweets.pop();
-
 									        	var responseObj = {
 													tweet: data.tweet,
 													loc: {
@@ -100,7 +99,7 @@ module.exports = {
 												}
 												
 									        	callback(responseObj)
-									        }
+									        };
 
 									        setInterval(function() {
 									        	console.log(tweets.length)
