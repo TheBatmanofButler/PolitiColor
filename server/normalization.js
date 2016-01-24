@@ -65,7 +65,7 @@ var thousandRegex =/([0-9]+)k/g;
 var atRegex=/@([a-z]+)/g;
 
 //Matches url
-var urlRegex = /(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)/g
+var urlRegex = /https?:\/\/[\w]+.[\w|\/]+/g
 
 //Matches characters that repeat more than 2 times 
 var repeatRegex = /(.)\1{2,}/g;
