@@ -9,6 +9,8 @@
 var bayes = require('bayes');
 var fs = require('fs');
 var jsonfile = require('jsonfile');
+var stateJson = JSON.parse(fs.readFileSync('../machineLearningArtifacts/WRONG.json', 'utf8'));
+var revivedClassifier = bayes.fromJson(stateJson);
 
 // creates bayes classifer
 function bayesClassifier(trainerFile) {
@@ -33,10 +35,8 @@ function bayesClassifier(trainerFile) {
 module.exports = {
 
 	process: function(response, callback) {
-		var stateJson = JSON.parse(fs.readFileSync('../machineLearningArtifacts/WRONG.json', 'utf8'));
-		var revivedClassifier = bayes.fromJson(stateJson);
 		var category = revivedClassifier.categorize(response.tweet);
-
+		
 		if (category=="positive") {
 			response.sent = 1;
 		}

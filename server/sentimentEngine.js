@@ -23,18 +23,16 @@ module.exports = {
 	**/
 	processTweet: function(tweetObj, callback) {
 
-		// console.log(tweetObj);
-
 		norm.process(tweetObj, function(normResponse) {
-
-			// console.log(normResponse);
 
 			filter.process(normResponse, function(filterResponse) {
 
-				// console.log(filterResponse);
-
 				sent.process(filterResponse, function(sentimentResponse) {
-					callback(sentimentResponse);
+
+					if(sentimentResponse.sent !== 0)
+						callback(sentimentResponse);
+					else
+						console.log("Returned zero")
 				});
 			});
 		});

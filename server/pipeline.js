@@ -20,7 +20,8 @@ function pipeline() {
 
 		sentimentEngine.processTweet(twitterResponse, function(sentimentReponse) {
 
-			rollingAvgServer.updateSubject(sentimentReponse, function(averageResponse, tweetResponse) {
+			rollingAvgServer.updateSubject(sentimentReponse, function(averageResponse) {
+
 				socket.emitData(averageResponse);
 			});
 

@@ -155,8 +155,8 @@ var stateToNum = {
 var currentCandidate = "repub-dem";
 
 function getIDFromTweet(tweetObj) {
-  //return stateToNum[tweetObj.loc.state];
-  return "w" + tweetObj.loc.state;
+  return stateToNum[tweetObj.loc.state];
+  //return "w" + tweetObj.loc.state;
 }
 
 function getColorFromTweet(tweetObj, subject) {
@@ -185,8 +185,8 @@ function mapColors() {
       if(mostRecentDemocrat[stateToNum[key]])
         demVal = mostRecentDemocrat[stateToNum[key]].sent;
 
-      console.log(repubVal)
-      console.log(demVal)
+      //console.log(repubVal)
+      //console.log(demVal)
 
       var value = 0;
 
@@ -218,7 +218,9 @@ function processData(data) {
   
   data.id = id;
 
-  for(index in data.subj) {
+  console.log(data)
+
+  /*for(index in data.subj) {
 
     var subject = data.subj[index]; 
     var color = getColorFromTweet(data, subject);
@@ -228,7 +230,7 @@ function processData(data) {
 
     if(subject === currentCandidate || currentCandidate === 'repub-dem')
       mapColors();
-  }
+  }*/
   
 }
 
