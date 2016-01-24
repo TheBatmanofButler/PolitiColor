@@ -20,7 +20,7 @@
   <body>
     <div class ="title"> PolitiColor</div>
     <div class ="subtitle"> PolitiColor maps Twitter sentiment data in real-time for the 2016 presidential election </div>
-
+    <div class='map-container'></div>
     <div class ="container" > 
       <p class='header'> What is Politicolor? </p> 
     </div> 
@@ -28,22 +28,19 @@
       <img src= "img/repubdem.png" style="width = 50%; float:right;"> </img>
     </div>
     <div class = "textboxes" style="width:50%; height=400px; color: black; margin-top:13%;">           
-      <p> PolitiColor is a site(?) that uses twitter's API and D3 to create chroropleth maps that portray the genenral sentiment of twitter users in that state or election district.</p> 
-      <p> By using natural language processing and (WHAT ARE WE USING), tweets are parsed in terms of their sentiment toward the candiadate or political party that they write about.</p> 
-      <p> For example: if you, in Pennsylvania, write "surpised and pleased sanders is doing really well in New Hampshire #feelthebern," that gets parsed and affects Pennsylvania's display color on the map. 
+      <p> PolitiColor is an app that uses the Twiter firehose and d3.js to create chroropleth maps. Each tweet is passed into a self-designed and implemented pipeline that converts a tweet to a number representing sentiment. The pipeline aggregates and averages sentiment values for tweets by location, and displays its findings on the map above. 
       </p>
     </div> 
     <div class='container'> 
       <p> How PolitiColor works</p> 
     </div>  
-    <div> <img src="workflow.png" style="align: middle; width: 100%;"></img> </div>
-    <div class = "quad1" id ="quad2" style="margin-left ">
-      <p style = "font-family: Roboto Slab; font-size: 2.2vw; ">twitter</p>
-
-    <div> <img src="img/workflow.png" style="align: middle; width: 100%;"></img> </div>
+    <div> 
+      <img src="img/workflow.png"></img>
+    </div>
+    <div class='quad1'>
       <p class='quadTitle'>The Hose</p>
       <p> twitter api etc get data </p> 
-      </div>
+    </div>
     <div class = "quad1">
       <p class='quadTitle'>The Engine</p>
       <p> A romantic name for an unromantic subject, the sentiment engine uses a homebrewed(change word?) algorithm using (shit whats the thing called?) to assign values to positive and negatively connotated words. </p> 

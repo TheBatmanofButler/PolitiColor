@@ -6,7 +6,7 @@ html, body {
 }
 
 img {
-  /* text-align: center; */
+  text-align: center;
   width: 100%;
 }
 
@@ -22,16 +22,29 @@ path {
   stroke-width: 1.5px;
 }
 
-.quad1{ 
-  font-family: Raleway; 
+.map-container {
+  width: 100%;
+  height: 95%;
+}
+
+.repubdem {
+  width: 40%;
+  margin-top: 10%;
+  float: right;
+}
+
+.quad1{
+  font-family: Raleway;
   font-size: 2vw;
   float:left;
-  width: 23%;
+  width: 20%;
   height: 40vw;
-  padding: 10px;
+  /* margin-left: 1%; */
+  padding: 2%;
   background-color: #2E2E2E;
   border-radius: 15px;
-  margin: 3px;
+  /* margin: .3%; */
+  margin-left: .75%;
   color: white;
 }
 
@@ -48,11 +61,11 @@ background-color: #585858;
 .container {
   font-size: 2vw;
   font-family: Roboto Slab;
-  margin-top:50px;
+  margin-top: 2%;
   float: left;
   background-color: #585858;
   width: 98.8%;
-  padding: 10px;
+  padding: .1%;
   color: white;
 }
 
@@ -66,8 +79,8 @@ background-color: #585858;
 
 .textboxes{
   padding: 2vw;
-  font-family: Raleway; 
-  font-size: 2vw;
+  font-family: Raleway;
+  font-size: 1.5vw;
   margin: 3px;
   margin-top: 2vw;
   color: white;
