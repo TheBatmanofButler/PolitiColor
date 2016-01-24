@@ -84,6 +84,22 @@ module.exports = {
 									    .on("end", function() {
 									        //execute the next function with the output array
 									        console.log("done with 5")
+
+									        // Ramp
+									        for (i=0; i<10000; i++) {
+									        	var data = tweets.pop();
+
+									        	var responseObj = {
+													tweet: data.tweet,
+													loc: {
+														state: data.state
+													}, 
+													sent: null,
+													subj: null
+												}
+									        	callback(responseObj)
+									        }
+
 									        setInterval(function() {
 									        	console.log(tweets.length)
 

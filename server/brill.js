@@ -78,7 +78,6 @@ module.exports = {
 		var posString = "";
 		var actualString = "";
 
-		console.log(taggedWords)
 
 		for(var i=0; i < taggedWords.length; i++) {
 			if(!posFilter[taggedWords[i][1]]) {
@@ -87,13 +86,11 @@ module.exports = {
 			}
 		}
 
-		console.log(taggedWords)
 
 		var possibleSubjects = [];
 
 
 		
-		console.log(subjects);
 
 		response.tweet = taggedWords;
 
