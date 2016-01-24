@@ -16,9 +16,14 @@ ul, li {
   list-style: none;
 }
 
-.buttons ul {
+.buttons {
   width: 100%;
   height: 5%;
+}
+
+.buttons ul {
+  width: 100%;
+  height: 100%;
   margin-left: 5%;
   margin-top: 1%;
   font-family: Raleway;
@@ -28,7 +33,7 @@ ul, li {
 
   .buttons ul li {
     width: 5%;
-    /* height: 9%; */
+    height: 100%;
     display: inline-block;
     text-align: center;
     margin-right: 10%;
@@ -39,6 +44,8 @@ ul, li {
 
   .buttons .button {
     cursor: pointer;
+    height: 90%;
+    width: 100%;
   }
 
   .buttons .button:hover {
@@ -46,15 +53,16 @@ ul, li {
   }
 
   .trump, .cruz {
-
+    background: url('../img/redbutton.png');
   }
 
   .sanders, .clinton {
+    background-image: url('../img/bluebutton.png');
 
   }
 
-  .repup-dem {
-
+  .repub-dem {
+    background-image: url('../img/greybutton.png');
   }
 
 .land {
