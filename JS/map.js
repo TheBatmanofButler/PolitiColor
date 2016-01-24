@@ -72,6 +72,11 @@ var colorMap = {
   "republican":"rgba(233,29,14,"
 }
 
+var mapInfo = {"trump": "The redder the state, the more positive the Trump response of Twitter users in the state. The bluer the state, the more negative the response.",
+"cruz": "The redder the state, the more positive the Cruz response of Twitter users in the state. The bluer the state, the more negative the response.",
+"sanders": "The bluer the state, the more positive the Sanders response of Twitter users in the state. The redder the state, the more negative the response.",
+"clinton": "The bluer the state, the more positive the Trump response of Twitter users in the state. The redder the state, the more negative the response.",
+"bothParties": "The bluer the state, the more positive the Democratic response of Twitter users in the state. The redder the state, the more positive the Republican response."}
 
 $(document).ready(function() {
 
@@ -80,6 +85,13 @@ $(document).ready(function() {
   ready(null, us, congress);
 
   mapColors();
+
+  $(".map-title").mouseover(function() {
+    $(".overlay").css('visibility','visible');
+  });
+  $(".map-title").mouseout(function() {
+    $(".overlay").css('visibility','hidden');
+  });
 
 });
 
@@ -212,16 +224,14 @@ function mapColors() {
 
 function processData(data) {  
 
-<<<<<<< HEAD
   console.log(data)
 
   data.id = stateToNum[data.loc.state]; 
 
   console.log(data.id)
 
+  // for(index in data.subj) {
   for(index in data.subj) {
-=======
-  /*for(index in data.subj) {
 
     var subject = data.subj[index]; 
     var color = getColorFromTweet(data, subject);
@@ -230,7 +240,7 @@ function processData(data) {
     subjToStore[subject][data.id] = data;
 
     d3.select('#' + data.id).attr({"fill":data.color});
-  }*/
+  }
   
 }
 
@@ -242,6 +252,7 @@ $('.trump').click(function() {
   $('.map-title').slideToggle(function() {
     $(this).html('Trump').slideToggle();
   });
+  $('.overlay').text(mapInfo.trump);
   currentCandidate = 'trump';
   mapColors();
 });
@@ -250,6 +261,7 @@ $('.cruz').click(function() {
   $('.map-title').slideToggle(function() {
     $(this).html('Cruz').slideToggle();
   });
+  $('.overlay').text(mapInfo.cruz);
   currentCandidate = 'cruz';
   mapColors();
 });
@@ -258,6 +270,7 @@ $('.sanders').click(function() {
   $('.map-title').slideToggle(function() {
     $(this).html('Sanders').slideToggle();
   });
+  $('.overlay').text(mapInfo.sanders);
   currentCandidate = 'sanders';
   mapColors();
 });
@@ -266,6 +279,7 @@ $('.clinton').click(function() {
   $('.map-title').slideToggle(function() {
     $(this).html('Clinton').slideToggle();
   });
+  $('.overlay').text(mapInfo.clinton);
   currentCandidate = 'clinton';
   mapColors();
 });
@@ -274,7 +288,7 @@ $('.repub-dem').click(function() {
   $('.map-title').slideToggle(function() {
     $(this).html('Both Parties').slideToggle();
   });
+  $('.overlay').text(mapInfo.bothParties);
   currentCandidate = 'repub-dem';
   mapColors();
 });
-
