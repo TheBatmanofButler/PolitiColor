@@ -33,7 +33,7 @@ function testData() {
 	  subj: subj 
 	}
 
-	emitData(dummyData);
+	module.exports.emitData(dummyData);
 
 	setTimeout(testData, 100);
 }
@@ -44,3 +44,5 @@ module.exports = {
 		io.emit('serverToClient', data); 
 	}
 }
+
+testData();
