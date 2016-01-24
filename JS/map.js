@@ -236,26 +236,41 @@ socket.on('serverToClient', function(data){
 });
 
 $('.trump').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Trump').slideToggle();
+  });
   currentCandidate = 'trump';
   mapColors();
 });
 
 $('.cruz').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Cruz').slideToggle();
+  });
   currentCandidate = 'cruz';
   mapColors();
 });
 
 $('.sanders').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Sanders').slideToggle();
+  });
   currentCandidate = 'sanders';
   mapColors();
 });
 
 $('.clinton').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Clinton').slideToggle();
+  });
   currentCandidate = 'clinton';
   mapColors();
 });
 
 $('.repub-dem').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Both Parties').slideToggle();
+  });
   currentCandidate = 'repub-dem';
   mapColors();
 });
