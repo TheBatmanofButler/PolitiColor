@@ -29,6 +29,7 @@ function pipeline() {
 	});
 }
 
+pipeline();
 /**
 	Final response:
 

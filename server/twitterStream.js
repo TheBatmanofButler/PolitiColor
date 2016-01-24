@@ -2,9 +2,7 @@
 // Run on server startup.  Authenticates server to have access to 
 // "app authentication only" twitter API
 
-var csvWriter = require('csv-write-stream');
 var Twit = require('twit');
-var fs = require('fs');
 var states = {
 	Alabama: 'AL',
     Alaska: 'AK',
