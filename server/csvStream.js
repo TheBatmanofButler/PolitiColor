@@ -84,6 +84,7 @@ module.exports = {
 									    .on("end", function() {
 									        //execute the next function with the output array
 									        console.log("done with 5")
+									        console.log(tweets.length)
 
 									        // Ramp
 									        for (i=0; i<10000; i++) {
