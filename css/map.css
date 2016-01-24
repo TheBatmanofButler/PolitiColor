@@ -54,13 +54,14 @@ path {
   width: 23%;
   height: 40vw;
   padding: 10px;
-  background-color: red;
+  background-color: #2E2E2E;
   border-radius: 15px;
   margin: 3px;
+  color: white;
 }
 
 #quad2{
-background-color: blue;
+background-color: #585858;
 }
 
 .headers{
@@ -68,9 +69,10 @@ background-color: blue;
   font-family: Raleway; 
   margin-top:50px; 
   float: left; 
-  background-color: red;
+  background-color: #585858;
   width: 100%;
   padding: 10px;
+  color: white;
 
 }
 .textboxes{
@@ -78,6 +80,7 @@ background-color: blue;
   font-family: Raleway; 
   font-size: 2vw;
   margin: 3px;
-  margin-top: 15px
+  margin-top: 15px;
+  color: white;
 
 }
