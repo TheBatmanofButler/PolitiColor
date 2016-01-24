@@ -20,11 +20,11 @@ function pipeline() {
 
 		sentimentEngine.processTweet(twitterResponse, function(sentimentReponse) {
 
-			rollingAvgServer.updateSubject(sentimentReponse, function(averageResponse) {
+			rollingAvgServer.updateSubject(sentimentReponse, function(averageResponse, tweetResponse) {
 				socket.emitData(averageResponse);
 			});
 
 		});
-		
+
 	});
 }
