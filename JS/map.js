@@ -39,6 +39,11 @@ function ready(error, us, congress, callback) {
 
   var counter = 0; 
   
+  features.append("path")
+      .datum(topojson.feature(us, us.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
   features.append("g")
       .attr("class", "states")
     .selectAll("path")
@@ -51,8 +56,6 @@ function ready(error, us, congress, callback) {
       .attr("class", "state-boundaries")
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
       .attr("d", path);
-
-  callback();
 }
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -97,8 +100,6 @@ $(document).ready(function() {
   $('html').fadeIn('slow');
 
 
-  ready(null, us, congress, function() {
-  });
+  ready(null, us, congress);
 
-  d3.select(self.frameElement).style("height", height + "px");
 });

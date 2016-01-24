@@ -10,15 +10,15 @@ img {
   width: 100%;
 }
 
-path {
-  stroke-linejoin: round;
-  stroke-linecap: round;
+.land {
+  fill: #FFF;
+  stroke: #0C0C0C;
 }
 
 .state-boundaries {
   pointer-events: none;
   fill: none;
-  stroke: #fff;
+  stroke: #000;
   stroke-width: 1.5px;
 }
 
@@ -98,17 +98,17 @@ background-color: #585858;
 
 .subtitle {
   
-font-size: 1.4vw;
-  
-font-family: Raleway;
-  
-line-height: 2vw;
-  
-margin-left: 2%;
-  
-margin-top: 1%;
-  
-text-align: center;
+  font-size: 1.4vw;
+    
+  font-family: Raleway;
+    
+  line-height: 2vw;
+    
+  margin-left: 2%;
+    
+  margin-top: 1%;
+    
+  text-align: center;
 }
 
 .textboxes {
