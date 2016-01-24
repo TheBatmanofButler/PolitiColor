@@ -49,7 +49,7 @@ var stringMap = {
 	'gr8': 'great',
 	'lol': 'laugh out loud',
 	'!!':'!',
-	'never':'not'
+	'never':'not',
 }	
 
 //Matches all white space
@@ -63,9 +63,6 @@ var thousandRegex =/([0-9]+)k/g;
 
 //Matches @lksjdf
 var atRegex=/@([a-z]+)/g;
-
-//Matches a candidate with a space
-var candidateRegex = /(donald) (trump)|(ted) (cruz)|(hillary) (clinton)|(bernie) (sanders)|(bernard) (sanders)/g;
 
 //Matches url
 var urlRegex = /(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/=]*)/g
@@ -97,7 +94,6 @@ module.exports = {
 				.replace(twoTooRegex, function(match, p1) { return 'too ' + p1})
 				.replace(thousandRegex, function(match, p1) { return p1 + '000'})
 				.replace(atRegex, function(match, p1) { return 'at ' + p1})
-				.replace(candidateRegex, function(match, p1, p2) {return p1 + p2})
 				.replace(urlRegex, ' ')
 				.replace(repeatRegex, function(match, p1) { return p1+p1})
 				.replace(notContractionRegex, function(match) { return " not"})
@@ -108,7 +104,18 @@ module.exports = {
 				.replace('democratic party', 'democratic_party')
 				.replace('general election', 'general_election')
 				.replace('gop frontrunner', 'gop_frontrunner')
-				.replace('grass roots', 'grass_roots');
+				.replace('democratic frontrunner', 'democratic_frontrunner')
+				.replace('grass roots', 'grass_roots')
+				.replace('donald trump', 'trump')
+				.replace('ted cruz', 'cruz')
+				.replace('hillary clinton', 'clinton')
+				.replace('hillary rodham clinton', 'clinton')
+				.replace('email scandal', 'email_scandal')
+				.replace('bernie sanders', 'sanders')
+				.replace('art of the deal', 'art_of_the_deal')
+				.replace('#','')
+				.replace('@', 'at ')
+				.replace('tea party', 'teaparty');
 
 
 		var words = tweet.split(' ');

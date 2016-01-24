@@ -28,7 +28,11 @@ function ready(error, us, congress) {
     .on("zoom", zoomed);
 
   var features = svg.append("g")      
-    features.call(zoom);
+    /**features.call(zoom)
+    .on("mousedown.zoom", null)
+    .on("touchstart.zoom", null)
+    .on("touchmove.zoom", null)
+    .on("touchend.zoom", null);**/
 
   features.append("defs").append("path")
       .attr("id", "land")
@@ -47,25 +51,7 @@ function ready(error, us, congress) {
     .selectAll("path")
       .data(topojson.feature(us, us.objects.states).features)
     .enter().append("path")
-      .attr("class", function(d) { return 'w' + counter++; })
-      .attr("d", path);
-
-  var counter = 0; 
-  features.append("g")
-      .attr("class", "districts")
-      .attr("clip-path", "url(#clip-land)")
-    .selectAll("path")
-      .data(topojson.feature(congress, congress.objects.districts).features)
-    .enter().append("path")
-    .attr("class", function(d) { return 'm' + counter++; })
-    .attr("id", function(d) { return "w" + d.id})
-      .attr("d", path)
-    .append("title")
-      .text(function(d) { return d.id; });
-
-  features.append("path")
-      .attr("class", "district-boundaries")
-      .datum(topojson.mesh(congress, congress.objects.districts, function(a, b) { return a !== b && (a.id / 1000 | 0) === (b.id / 1000 | 0); }))
+      .attr("id", function(d) { return 'w' + counter++; })
       .attr("d", path);
 
   features.append("path")
@@ -76,7 +62,6 @@ function ready(error, us, congress) {
   function zoomed() {
     features.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     features.select(".state-boundaries").style("stroke-width", 1.5 / d3.event.scale + "px");
-    features.select(".district-boundaries").style("stroke-width", 1 / d3.event.scale + "px");
   }
 }
 
@@ -85,6 +70,9 @@ ready(null, us, congress);
 d3.select(self.frameElement).style("height", height + "px");
 
 //-----------------------------------------------------------------------------------------------------------------
+
+var socket = io('http://52.90.127.98:8010');
+
 
 var colorMap = {
   "trump":"rgba(233,29,14,",
@@ -97,7 +85,7 @@ var colorMap = {
 
 
 function getIDFromTweet(tweetObj) {
-  return "w"+tweetObj.loc.state + "" + tweetObj.loc.county;
+  return "w"+tweetObj.loc.state;
 }
 
 function getColorFromTweet(tweetObj) {
@@ -112,13 +100,8 @@ function colorCounty(tweetObj) {
   d3.select('#' + id).attr({"fill":color});
 }
 
-var county = {
-  loc: {
-    state: "30",
-    county: "00"
-  }, 
-  sent: 0.5,
-  subj:'trump'
-}
+socket.on('serverToClient', function(data){
+  console.log(data)
+  colorCounty(data);
+});
 
-colorCounty(county);
