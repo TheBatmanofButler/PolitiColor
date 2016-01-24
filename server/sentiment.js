@@ -17,9 +17,7 @@ function bayesClassifier(trainerFile) {
 	var classifier = bayes();
 
 	var tweets = JSON.parse(fs.readFileSync(trainerFile, 'utf8'));
-	console.log(tweets);
 	for (var key in tweets) {
-		console.log(tweets[key]);
 		classifier.learn(key, tweets[key]);
 	}
 
