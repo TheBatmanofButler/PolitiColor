@@ -125,38 +125,45 @@ var toTrack = {
 		'republican', 'makeamericagreatagain', 'democratic frontrunner'],
 	language: 'en'
 };
-var stream = T.stream('statuses/filter', toTrack);
-
-
-var writer = new csvWriter( { headers: ['tweet text', 'location'] } );
-writer.pipe(fs.createWriteStream('tweetData.csv'));
 
 var numTweets = 1;
 
-stream.on('tweet', function(tweet) {
-	var parsedTweet = JSON.parse(JSON.stringify(tweet))
-	var tweetText = parsedTweet.text;
-	var userLocation = parsedTweet.user.location;
 
-	if (userLocation !== null) {
-		var normalizedLocation = userLocation.replace(/\s/g, '');;
-		normalizedLocation = normalizedLocation.split(',');
 
-		for (var i in normalizedLocation) {
-			var stateCode = states[normalizedLocation[i]];
 
-			if (stateCode) {
-				numTweets++;
-				writer.write([tweetText, stateCode])
+module.exports = {
+	startStream: function(callback) {
+		var stream = T.stream('statuses/filter', toTrack);
+
+		stream.on('tweet', function(tweet) {
+			var parsedTweet = JSON.parse(JSON.stringify(tweet))
+			var tweetText = parsedTweet.text;
+			var userLocation = parsedTweet.user.location;
+
+			if (userLocation !== null) {
+				var normalizedLocation = userLocation.replace(/\s/g, '');;
+				normalizedLocation = normalizedLocation.split(',');
+
+				for (var i in normalizedLocation) {
+					var stateCode = states[normalizedLocation[i]];
+
+					if (stateCode) {
+						
+						var responseObj = {
+							location: {
+								state: stateCode
+							}, 
+							sent: null,
+							subj: null
+						}
+
+						callback(responseObj);
+					}
+				}
 			}
-		}
+		});
 	}
-
-	if (numTweets%100 == 0) {
-		console.log(numTweets);
-	}
-});
-
+}
 
 //writer.end()
 

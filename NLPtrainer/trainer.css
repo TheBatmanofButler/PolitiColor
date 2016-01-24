@@ -1,0 +1,39 @@
+html, body {
+	margin: 0;
+	padding: 0;
+
+	width: 100%;
+
+	background-color: #F49D37;
+}
+
+.button-wrapper {
+	width: 100%;
+}
+
+.button {
+	background-color: #3F88C5;
+	border: 2px solid #D72638;
+
+	cursor: pointer;
+}
+
+#file-input {
+}
+
+#create-json-button {
+	margin-bottom: 10%;
+}
+
+#positive-button {
+	width: 40%;
+	float:left;
+	margin-right: 18%;
+	margin-bottom: 10%;
+}
+
+#negative-button {
+	width: 40%;
+	float:left;
+	margin-bottom: 10%;
+}
