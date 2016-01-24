@@ -218,8 +218,6 @@ function processData(data) {
   
   data.id = id;
 
-  console.log(data)
-
   /*for(index in data.subj) {
 
     var subject = data.subj[index]; 
