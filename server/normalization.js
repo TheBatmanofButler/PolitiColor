@@ -89,6 +89,7 @@ module.exports = {
 	**/
 	process: function(response, callback) {
 		var tweet = response.tweet;
+		// console.log(tweet);
 		tweet = tweet.toLowerCase();
 		tweet = tweet.replace(spaceRegex, ' ')
 				.replace(twoTooRegex, function(match, p1) { return 'too ' + p1})

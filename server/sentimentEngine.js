@@ -6,6 +6,8 @@
 	Description: Server that ties pathway for tweets together
 **/
 
+var jsonfile = require('jsonfile');
+
 //Normalizes text
 var norm = require('./normalization');
 //Filters out unnecessary stuff
@@ -21,15 +23,15 @@ module.exports = {
 	**/
 	processTweet: function(tweetObj, callback) {
 
-		console.log(tweetObj);
+		// console.log(tweetObj);
 
 		norm.process(tweetObj, function(normResponse) {
 
-			console.log(normResponse);
+			// console.log(normResponse);
 
 			filter.process(normResponse, function(filterResponse) {
 
-				console.log(filterResponse);
+				// console.log(filterResponse);
 
 				sent.process(filterResponse, function(sentimentResponse) {
 					callback(sentimentResponse);
