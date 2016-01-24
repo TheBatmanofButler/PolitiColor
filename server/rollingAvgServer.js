@@ -11,7 +11,7 @@ Packet Object: Object format that is received from Sentiment Engine.  Object for
 				to pass onto the Front End
 {
 	loc: Location Object	The Location object which stores information about location
-	subj: String			Is candidate name or "Democrat" or "Republican"
+	subj: Array[String]		Is candidate name or "Democrat" or "Republican"
 	sent: Num				Number between [0,1)  Represents rolling sentiment value average
 	tweet: String 			The processed tweet from the Sentiment Engine (not used)
 }
@@ -40,7 +40,7 @@ LocationSentiment Object: Object that stores the sentiments tied to a location a
 */
 
 // Max sentimentResponses Array[Num] size
-var MAX_SENTIMENT_RESPONSES = 5;
+var MAX_SENTIMENT_RESPONSES = 1000;
 
 
 // Subject Objects
@@ -64,21 +64,31 @@ var METADATA = {
 //sentimentResponse: Packet Object
 function updateSubject(sentimentResponse, callback) {
 	// Unpack sentiment Response
+	var subjectArray = sentimentResponse['subj'];
 	var state = sentimentResponse['loc']['state'];
-	var subject = sentimentResponse['subj'];
 	var sentiment = sentimentResponse['sent'];
 
-	// Executes all the nessecary METADATA adjustments to the subject in question
-	// DOES DO THE CALLBACK
-	updateSubjData(state, subject, sentiment, callback)
+	for (var i in subjectArray) {
+		var subject = subjectArray[i];
 
-	// Executes all the nessecary METADATA adjustments to republican or democratic
-	// NOOOOOOOOOOOOO CALLBACK
-	if (subject == 'trump' || subject == 'cruz') {
-		updateSubjData(state, 'republican', sentiment, callback)
-	}
-	if (subject == 'clinton' || subject == 'sanders') {
-		updateSubjData(state, 'democrat', sentiment, callback)
+		console.log(subject);
+
+		// Executes all the nessecary METADATA adjustments to the subject in question
+		updateSubjData(state, subject, sentiment, callback)
+
+		// Executes all the nessecary METADATA adjustments to republican or democratic
+		if (subject == 'trump' || subject == 'cruz') {
+
+			console.log('republican')
+
+			updateSubjData(state, 'republican', sentiment, callback)
+		}
+		if (subject == 'clinton' || subject == 'sanders') {
+
+			console.log('democrat')
+
+			updateSubjData(state, 'democrat', sentiment, callback)
+		}
 	}
 }
 
@@ -140,35 +150,22 @@ function arrayAvg(array) {
 	return arraySum / array.length;
 }
 
-// Dummy function to intercept unnessecary callback
-var dummy = function(a,b) {}
-
 
 /*
 // test first data in clean database
 var sent1 = {
 	loc: {state: 'NY'},
-	subj: 'cruz',
+	subj: ['cruz'],
 	sent: -0.45
 }
 
 
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(data)});
-updateSubject(sent1, (data) => {console.log(METADATA['cruz'])});
-updateSubject(sent1, (data) => {console.log(METADATA['republican'])});
-updateSubject(sent1, (data) => {console.log(METADATA['democrat'])});*/
 
+updateSubject(sent1, (data) => {console.log(data)});
+//updateSubject(sent1, (data) => {console.log(METADATA['cruz'])});
+//updateSubject(sent1, (data) => {console.log(METADATA['republican'])});
+//updateSubject(sent1, (data) => {console.log(METADATA['democrat'])});
+*/
 
 
 
