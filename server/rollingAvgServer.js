@@ -2,6 +2,8 @@
 // 
 
 var io = require('socket.io').listen(8020);
+var fs = require('fs');
+var csv = require('fast-csv');
 
 /*
 Location Object: Object that can store information related to a Subject or Packet.  Currently only stores state.
@@ -67,30 +69,7 @@ module.exports = {
 
 	//sentimentResponse: Packet Object
 	updateSubject: function(sentimentResponse, callback) {
-		/*function callCallback(AvgSentiment) {
-			sentimentResponse.sent = AvgSentiment;
-			callback(sentimentResponse);
-		}*/
-
-		// Unpack sentiment Response
-		var subjectArray = sentimentResponse['subj'];
-		var state = sentimentResponse['loc']['state'];
-		var sentiment = sentimentResponse['sent'];
-
-		for (var i in subjectArray) {
-			var subject = subjectArray[i];
-
-			// Executes all the nessecary METADATA adjustments to the subject in question
-			updateSubjData(state, subject, sentiment, sentimentResponse, callback)
-
-			// Executes all the nessecary METADATA adjustments to republican or democratic
-			if (subject == 'trump' || subject == 'cruz') {
-				updateSubjData(state, 'republican', sentiment, sentimentResponse, callback)
-			}
-			if (subject == 'clinton' || subject == 'sanders') {
-				updateSubjData(state, 'democrat', sentiment, sentimentResponse, callback)
-			}
-		}
+		localUpdateSubject(sentimentResponse, callback);
 	}
 
 	,
@@ -105,8 +84,62 @@ module.exports = {
 		dumpSubjData('democrat');
 	}
 
+	,
 
+	// THIS WILL BREAK IF THE PACKET INFORMATION CHANGES CONTACT DEREK SEE IF HE REMEMBERS IF NOT ALL HOPE IS LOST
+	loadData: function(callback) {
+		console.log('loading')
+		var readStream = fs.createReadStream('oldTweetSentiments.csv');
+		var csvReadStream = csv()
+			.on("data", function(data) {
+				if (data.length == 4) {
+					var subjData = data[3].split(',');
+					if (subjData[3] == '') { 
+						subjData = [];
+					}
 
+					if (data[0] != 'tweet') {
+						var packetObject = {
+							'tweet': data[0],
+							'loc': {'state': data[1]},
+							'sent': data[2],
+							'subj': subjData
+						}
+
+						localUpdateSubject(packetObject, function(whocares){});
+					}
+				}
+			})
+		    .on("end", function() {
+		    	console.log('data loaded');
+		    	callback();
+		    });
+		
+	readStream.pipe(csvReadStream);
+	}
+}
+
+function localUpdateSubject(sentimentResponse, callback) {
+
+	// Unpack sentiment Response		
+	var subjectArray = sentimentResponse['subj'];
+	var state = sentimentResponse['loc']['state'];
+	var sentiment = sentimentResponse['sent'];
+
+	for (var i in subjectArray) {
+		var subject = subjectArray[i];
+
+		// Executes all the nessecary METADATA adjustments to the subject in question
+		updateSubjData(state, subject, sentiment, sentimentResponse, callback)
+
+		// Executes all the nessecary METADATA adjustments to republican or democratic
+		if (subject == 'trump' || subject == 'cruz') {
+			updateSubjData(state, 'republican', sentiment, sentimentResponse, callback)
+		}
+		if (subject == 'clinton' || subject == 'sanders') {
+			updateSubjData(state, 'democrat', sentiment, sentimentResponse, callback)
+		}
+	}
 }
 
 function dumpSubjData(subject) {
