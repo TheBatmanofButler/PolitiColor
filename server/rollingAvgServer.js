@@ -1,6 +1,8 @@
 // Derek Hong 2016
 // 
 
+var io = require('socket.io').listen(8020);
+
 /*
 Location Object: Object that can store information related to a Subject or Packet.  Currently only stores state.
 {
@@ -20,11 +22,11 @@ Subject Object: Object that stores the sentiments of a Subject (either candidate
 {
 	subj: String			Is candidate name, or "Democrat" or "Republican"
 	_locName_: LocationSentiment Object			The sentiments tied to a location
-	_locName_: LocationSentiment Object			for this certain subject.  Stored
-	.											as an array of LocationSentiments.
+	_locName_: LocationSentiment Object			for this certain subject.  
 	.											_locName_ is replaced with the appropriate
 	.											loc denomination (currently "state", the 
-	_locName_: LocationSentiment Object			two letter state code).
+	.											two letter state code).
+	_locName_: LocationSentiment Object			
 }
 
 LocationSentiment Object: Object that stores the sentiments tied to a location and a user
@@ -83,15 +85,45 @@ module.exports = {
 
 			// Executes all the nessecary METADATA adjustments to republican or democratic
 			if (subject == 'trump' || subject == 'cruz') {
-				sentimentResponse.subj[0] = 'republican';
 				updateSubjData(state, 'republican', sentiment, sentimentResponse, callback)
 			}
 			if (subject == 'clinton' || subject == 'sanders') {
-				sentimentResponse.subj[0] = 'democrat';
 				updateSubjData(state, 'democrat', sentiment, sentimentResponse, callback)
 			}
 		}
 	}
+
+	,
+
+	// Dumps all avgSentiment Data to client
+	dataDump: function() {
+		dumpSubjData('trump');
+		dumpSubjData('sanders');
+		dumpSubjData('clinton');
+		dumpSubjData('cruz');
+		dumpSubjData('republican');
+		dumpSubjData('democrat');
+	}
+
+
+
+}
+
+function dumpSubjData(subject) {
+	var responsePacket = {
+		'subj': [subject],
+		'loc': {'state': ''},
+		'sent': 0,
+	}
+
+	for (var state in METADATA[subject]) {
+		if (state != 'subj') {
+			responsePacket['loc']['state'] = state;
+			responsePacket['sent'] = METADATA[subject][state]['avgResponse'];
+		}
+	}
+
+	io.emit('serverToClient', responsePacket); 
 }
 
 function updateSubjData(state, subject, sentiment, originalResponse, callback) {
@@ -116,7 +148,7 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 
 	// now, deposit the newest sentiment response into the LocationSentiment for this Subject
 	if (subjLocSent_SentResponses.length > MAX_SENTIMENT_RESPONSES) {
-		addSentiment(subjLocSent_SentResponses, subjLocSent_CurrResponse);
+		subjLocSent_SentResponses = addSentiment(subjLocSent_SentResponses, subjLocSent_CurrResponse);
 	}
 	else {
 		subjLocSent_SentResponses.push(subjLocSent_CurrResponse);
@@ -133,6 +165,7 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 	METADATA[subject][state]['currResponse'] = subjLocSent_CurrResponse;
 	METADATA[subject][state]['sentimentResponses'] = subjLocSent_SentResponses;
 
+	originalResponse.subj = [subject];
 	originalResponse.sent = subjLocSent_AvgResponse;
 	
 	// Finally, return the requested data
@@ -142,7 +175,12 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 
 // Pushes a new sentiment to a full Sentiment Array.
 function addSentiment(sentimentArray, sentiment) {
-	return sentimentArray.slice(1).push(sentiment);
+	// remove first sentiment
+	sentimentArray = sentimentArray.slice(1);
+	// add new sentiment to end
+	sentimentArray.push(sentiment);
+
+	return sentimentArray;
 }
 
 // find average of Array[Num]
@@ -170,6 +208,8 @@ updateSubject(sent1, (data) => {console.log(data)});
 //updateSubject(sent1, (data) => {console.log(METADATA['republican'])});
 //updateSubject(sent1, (data) => {console.log(METADATA['democrat'])});
 */
+
+
 
 
 

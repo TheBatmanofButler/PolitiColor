@@ -61,7 +61,7 @@ function ready(error, us, congress, callback) {
 //-----------------------------------------------------------------------------------------------------------------
 
 var socket = io('http://52.90.127.98:8010');
-
+//var socket = io('http://192.168.1.6:8010');
 
 var colorMap = {
   "trump":"rgba(233,29,14,",
@@ -228,7 +228,7 @@ function processData(data) {
 
   data.id = stateToNum[data.loc.state]; 
 
-  console.log(data.id)
+  //console.log(data.id)
 
   // for(index in data.subj) {
   for(index in data.subj) {
