@@ -40,7 +40,7 @@ LocationSentiment Object: Object that stores the sentiments tied to a location a
 */
 
 // Max sentimentResponses Array[Num] size
-var MAX_SENTIMENT_RESPONSES = 2500;
+var MAX_SENTIMENT_RESPONSES = 50000;
 
 
 // Subject Objects

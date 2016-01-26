@@ -75,7 +75,7 @@ var colorMap = {
 var mapInfo = {"trump": "The redder the state, the more positive the Trump response of Twitter users in the state. The bluer the state, the more negative the response.",
 "cruz": "The redder the state, the more positive the Cruz response of Twitter users in the state. The bluer the state, the more negative the response.",
 "sanders": "The bluer the state, the more positive the Sanders response of Twitter users in the state. The redder the state, the more negative the response.",
-"clinton": "The bluer the state, the more positive the Trump response of Twitter users in the state. The redder the state, the more negative the response.",
+"clinton": "The bluer the state, the more positive the Clinton response of Twitter users in the state. The redder the state, the more negative the response.",
 "bothParties": "The bluer the state, the more positive the Democratic response of Twitter users in the state. The redder the state, the more positive the Republican response."}
 
 $(document).ready(function() {
