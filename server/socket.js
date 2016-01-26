@@ -7,11 +7,15 @@
 */
 
 var io = require('socket.io').listen(8010);
+var rollingAvgServer = require('./rollingAvgServer.js');
 
 //On an io socket connection...
 //Main
 io.sockets.on('connection', function(socket) {
 	console.log("CONNECTED");
+
+	// Dump all current avgSentiment data to client
+	rollingAvgServer.dataDump();
 
 	socket.on('disconnect', function() {
      	console.log('Got disconnect!');
@@ -40,7 +44,7 @@ function testData() {
 
 module.exports = {
 	emitData: function(data) {
-		console.log(data)
+		//console.log(data)
 		io.emit('serverToClient', data); 
 	}
 }

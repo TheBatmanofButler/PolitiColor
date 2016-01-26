@@ -1,6 +1,8 @@
 // Derek Hong 2016
 // 
 
+var io = require('socket.io').listen(8020);
+
 /*
 Location Object: Object that can store information related to a Subject or Packet.  Currently only stores state.
 {
@@ -20,11 +22,11 @@ Subject Object: Object that stores the sentiments of a Subject (either candidate
 {
 	subj: String			Is candidate name, or "Democrat" or "Republican"
 	_locName_: LocationSentiment Object			The sentiments tied to a location
-	_locName_: LocationSentiment Object			for this certain subject.  Stored
-	.											as an array of LocationSentiments.
+	_locName_: LocationSentiment Object			for this certain subject.  
 	.											_locName_ is replaced with the appropriate
 	.											loc denomination (currently "state", the 
-	_locName_: LocationSentiment Object			two letter state code).
+	.											two letter state code).
+	_locName_: LocationSentiment Object			
 }
 
 LocationSentiment Object: Object that stores the sentiments tied to a location and a user
@@ -90,6 +92,38 @@ module.exports = {
 			}
 		}
 	}
+
+	,
+
+	// Dumps all avgSentiment Data to client
+	dataDump: function() {
+		dumpSubjData('trump');
+		dumpSubjData('sanders');
+		dumpSubjData('clinton');
+		dumpSubjData('cruz');
+		dumpSubjData('republican');
+		dumpSubjData('democrat');
+	}
+
+
+
+}
+
+function dumpSubjData(subject) {
+	var responsePacket = {
+		'subj': [subject],
+		'loc': {'state': ''},
+		'sent': 0,
+	}
+
+	for (var state in METADATA[subject]) {
+		if (state != 'subj') {
+			responsePacket['loc']['state'] = state;
+			responsePacket['sent'] = METADATA[subject][state]['avgResponse'];
+		}
+	}
+
+	io.emit('serverToClient', responsePacket); 
 }
 
 function updateSubjData(state, subject, sentiment, originalResponse, callback) {

@@ -133,6 +133,7 @@ var numTweets = 1;
 
 module.exports = {
 	startStream: function(callback) {
+
 		var stream = T.stream('statuses/filter', toTrack);
 
 		stream.on('tweet', function(tweet) {
