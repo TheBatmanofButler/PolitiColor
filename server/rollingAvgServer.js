@@ -116,7 +116,7 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 
 	// now, deposit the newest sentiment response into the LocationSentiment for this Subject
 	if (subjLocSent_SentResponses.length > MAX_SENTIMENT_RESPONSES) {
-		addSentiment(subjLocSent_SentResponses, subjLocSent_CurrResponse);
+		subjLocSent_SentResponses = addSentiment(subjLocSent_SentResponses, subjLocSent_CurrResponse);
 	}
 	else {
 		subjLocSent_SentResponses.push(subjLocSent_CurrResponse);
@@ -142,7 +142,12 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 
 // Pushes a new sentiment to a full Sentiment Array.
 function addSentiment(sentimentArray, sentiment) {
-	return sentimentArray.slice(1).push(sentiment);
+	// remove first sentiment
+	sentimentArray = sentimentArray.slice(1);
+	// add new sentiment to end
+	sentimentArray.push(sentiment);
+
+	return sentimentArray;
 }
 
 // find average of Array[Num]
@@ -170,6 +175,8 @@ updateSubject(sent1, (data) => {console.log(data)});
 //updateSubject(sent1, (data) => {console.log(METADATA['republican'])});
 //updateSubject(sent1, (data) => {console.log(METADATA['democrat'])});
 */
+
+
 
 
 

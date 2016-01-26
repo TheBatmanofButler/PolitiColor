@@ -238,7 +238,6 @@ socket.on('serverToClient', function(data){
 
 $('.trump').click(function() {
   currentCandidate = 'trump';
-
 });
 
 $('.cruz').click(function() {
