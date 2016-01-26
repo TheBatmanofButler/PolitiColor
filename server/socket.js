@@ -40,6 +40,7 @@ function testData() {
 
 module.exports = {
 	emitData: function(data) {
+		console.log(data)
 		io.emit('serverToClient', data); 
 	}
 }

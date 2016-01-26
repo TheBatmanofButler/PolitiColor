@@ -40,7 +40,7 @@ LocationSentiment Object: Object that stores the sentiments tied to a location a
 */
 
 // Max sentimentResponses Array[Num] size
-var MAX_SENTIMENT_RESPONSES = 1000;
+var MAX_SENTIMENT_RESPONSES = 2500;
 
 
 // Subject Objects
@@ -83,11 +83,11 @@ module.exports = {
 
 			// Executes all the nessecary METADATA adjustments to republican or democratic
 			if (subject == 'trump' || subject == 'cruz') {
-
+				sentimentResponse.subj[0] = 'republican';
 				updateSubjData(state, 'republican', sentiment, sentimentResponse, callback)
 			}
 			if (subject == 'clinton' || subject == 'sanders') {
-
+				sentimentResponse.subj[0] = 'democrat';
 				updateSubjData(state, 'democrat', sentiment, sentimentResponse, callback)
 			}
 		}
