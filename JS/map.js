@@ -228,7 +228,7 @@ function processData(data) {
 
   data.id = stateToNum[data.loc.state]; 
 
-  console.log(data.id)
+  //console.log(data.id)
 
   // for(index in data.subj) {
   for(index in data.subj) {
