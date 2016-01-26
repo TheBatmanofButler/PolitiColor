@@ -1,4 +1,4 @@
-/**
+/*
 	@author: Amol Kapoor
 	@date: 1-23-16
 	@version: 0.1
@@ -13,7 +13,6 @@ var sentimentEngine = require('./sentimentEngine');
 var rollingAvgServer = require('./rollingAvgServer');
 
 var socket = require('./socket');
-
 
 function pipeline() {
 
@@ -31,6 +30,7 @@ function pipeline() {
 			});
 
 		});
+
 	});
 }
 

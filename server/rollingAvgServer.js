@@ -1,7 +1,6 @@
 // Derek Hong 2016
 // 
 
-var io = require('socket.io').listen(8020);
 var fs = require('fs');
 var csv = require('fast-csv');
 
@@ -75,19 +74,22 @@ module.exports = {
 	,
 
 	// Dumps all avgSentiment Data to client
-	dataDump: function() {
-		dumpSubjData('trump');
-		dumpSubjData('sanders');
-		dumpSubjData('clinton');
-		dumpSubjData('cruz');
-		dumpSubjData('republican');
-		dumpSubjData('democrat');
+	dumpData: function(callback) {
+		console.log('dumping data')
+		dumpSubjData('trump', callback);
+		dumpSubjData('sanders', callback);
+		dumpSubjData('clinton', callback);
+		dumpSubjData('cruz', callback);
+		dumpSubjData('republican', callback);
+		dumpSubjData('democrat', callback);
+		console.log('data dumped')
 	}
 
 	,
 
 	// THIS WILL BREAK IF THE PACKET INFORMATION CHANGES CONTACT DEREK SEE IF HE REMEMBERS IF NOT ALL HOPE IS LOST
 	loadData: function(callback) {
+
 		console.log('loading')
 		var readStream = fs.createReadStream('oldTweetSentiments.csv');
 		var csvReadStream = csv()
@@ -102,7 +104,7 @@ module.exports = {
 						var packetObject = {
 							'tweet': data[0],
 							'loc': {'state': data[1]},
-							'sent': data[2],
+							'sent': Number(data[2]),
 							'subj': subjData
 						}
 
@@ -142,7 +144,7 @@ function localUpdateSubject(sentimentResponse, callback) {
 	}
 }
 
-function dumpSubjData(subject) {
+function dumpSubjData(subject, callback) {
 	var responsePacket = {
 		'subj': [subject],
 		'loc': {'state': ''},
@@ -153,10 +155,9 @@ function dumpSubjData(subject) {
 		if (state != 'subj') {
 			responsePacket['loc']['state'] = state;
 			responsePacket['sent'] = METADATA[subject][state]['avgResponse'];
+			callback(responsePacket)
 		}
 	}
-
-	io.emit('serverToClient', responsePacket); 
 }
 
 function updateSubjData(state, subject, sentiment, originalResponse, callback) {

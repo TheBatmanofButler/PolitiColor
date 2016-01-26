@@ -1,9 +1,13 @@
 
 
 
-var x = require('./rollingAvgServer.js');
 
-x.loadData()
+
+module.exports = {
+	rats: function() {
+		console.log('PQOWEURPOWIEURPOQWIEURPOQIWEU');
+	}
+}
 
 
 
