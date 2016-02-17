@@ -37,6 +37,8 @@ module.exports = {
 		var stateJson = JSON.parse(fs.readFileSync('../machineLearningArtifacts/bayesClassifier.json', 'utf8'));
 		var revivedClassifier = bayes.fromJson(stateJson);
 		var category = revivedClassifier.categorize(response.tweet);
+
+		revivedClassifier.learn(response.tweet, category);
 		
 		if (category=="positive") {
 			response.sent = 1;
