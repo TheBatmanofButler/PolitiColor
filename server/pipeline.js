@@ -1,4 +1,4 @@
-/**
+/*
 	@author: Amol Kapoor
 	@date: 1-23-16
 	@version: 0.1
@@ -14,10 +14,9 @@ var rollingAvgServer = require('./rollingAvgServer');
 
 var socket = require('./socket');
 
-
 function pipeline() {
 
-	//rollingAvgServer.loadData(function() {
+	rollingAvgServer.loadData(function() {
 
 		twitterStream.startStream(function(twitterResponse) { 
 
@@ -31,7 +30,8 @@ function pipeline() {
 			});
 
 		});
-	//});
+
+	});
 }
 
 pipeline();
