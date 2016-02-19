@@ -16,7 +16,7 @@ var socket = require('./socket');
 
 function pipeline() {
 
-	rollingAvgServer.loadData(function() {
+//	rollingAvgServer.loadData(function() {
 
 		twitterStream.startStream(function(twitterResponse) { 
 
@@ -31,7 +31,7 @@ function pipeline() {
 
 		});
 
-	});
+//	});
 }
 
 pipeline();
