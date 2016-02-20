@@ -202,6 +202,10 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 	originalResponse.subj = [subject];
 	originalResponse.sent = subjLocSent_AvgResponse;
 	
+	if(subject === 'trump' && state === 'CA') {
+		console.log(originalResponse);
+	}
+
 	// Finally, return the requested data
 	callback(originalResponse);
 }

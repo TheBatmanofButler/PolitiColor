@@ -223,7 +223,8 @@ function mapColors() {
 
 function processData(data) {  
 
-  //console.log(data)
+  if(data.subj === 'trump' && data.loc.state === 'CA')
+    console.log(data)
 
   data.id = stateToNum[data.loc.state]; 
 
@@ -238,7 +239,8 @@ function processData(data) {
 
     subjToStore[subject][data.id] = data;
 
-    d3.select('#' + data.id).attr({"fill":data.color});
+    if(data.subj[index] === currentCandidate)
+      d3.select('#' + data.id).attr({"fill":data.color});
   }
   
 }
