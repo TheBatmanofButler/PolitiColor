@@ -291,6 +291,10 @@ function repubdemCombinedAvg(state) {
 	}
 	var repubdem_numSentiments = repub_sentimentArray.length + dem_sentimentArray.length;
 
+	console.log(repub_sentimentArray)
+	console.log(dem_sentimentArray)
+	console.log(repubdem_numSentiments)
+
 	var repub_AvgResponse;
 	var dem_AvgResponse;
 	try {
@@ -308,7 +312,10 @@ function repubdemCombinedAvg(state) {
 		dem_AvgResponse = 0;
 	}
 
-	return (repub_AvgResponse + dem_AvgResponse) / repubdem_numSentiments;
+	console.log(repub_AvgResponse)
+	console.log(dem_AvgResponse)
+
+	return (repub_AvgResponse*repub_sentimentArray.length + dem_AvgResponse*dem_sentimentArray.length) / repubdem_numSentiments;
 }
 
 // find average of Array[Num]
@@ -322,41 +329,41 @@ function arrayAvg(array) {
 
 
 
-// // test first data in clean database
-// var sent1 = {
-// 	loc: {state: 'NY'},
-// 	subj: ['republican'],
-// 	sent: -0.45
-// }
-// var sent2 = {
-// 	loc: {state: 'NY'},
-// 	subj: ['republican'],
-// 	sent: -0.45
-// }
-// var sent3 = {
-// 	loc: {state: 'NY'},
-// 	subj: ['republican'],
-// 	sent: -0.45
-// }
-// var sent4 = {
-// 	loc: {state: 'NY'},
-// 	subj: ['republican'],
-// 	sent: -0.45
-// }
-// var sent5 = {
-// 	loc: {state: 'NY'},
-// 	subj: ['republican'],
-// 	sent: -0.45
-// }
+// test first data in clean database
+var sent1 = {
+	loc: {state: 'NY'},
+	subj: ['republican'],
+	sent: -0.45
+}
+var sent2 = {
+	loc: {state: 'NY'},
+	subj: ['republican'],
+	sent: -0.45
+}
+var sent3 = {
+	loc: {state: 'NY'},
+	subj: ['republican'],
+	sent: -0.45
+}
+var sent4 = {
+	loc: {state: 'NY'},
+	subj: ['republican'],
+	sent: -0.45
+}
+var sent5 = {
+	loc: {state: 'NY'},
+	subj: ['republican'],
+	sent: -0.45
+}
 
 
 
-// localUpdateSubject(sent1, (data) => {console.log(METADATA['republican'])});
-// localUpdateSubject(sent2, (data) => {console.log(METADATA['republican'])});
-// localUpdateSubject(sent3, (data) => {console.log(METADATA['republican'])});
-// localUpdateSubject(sent4, (data) => {console.log(METADATA['republican'])});
-// localUpdateSubject(sent5, (data) => {console.log(METADATA['republican'])});
-
+localUpdateSubject(sent1, (data) => {console.log(METADATA['republican'])});
+localUpdateSubject(sent2, (data) => {console.log(METADATA['republican'])});
+localUpdateSubject(sent3, (data) => {console.log(METADATA['republican'])});
+localUpdateSubject(sent4, (data) => {console.log(METADATA['republican'])});
+localUpdateSubject(sent5, (data) => {console.log(METADATA['republican'])});
+console.log(repubdemCombinedAvg('NY'));
 
 
 
