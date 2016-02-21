@@ -132,7 +132,7 @@ function localUpdateSubject(sentimentResponse, callback) {
 	var state = sentimentResponse['loc']['state'];
 	var sentiment = sentimentResponse['sent'];
 
-	console.log(sentiment)
+	//console.log(sentiment)
 
 	for (var i in subjectArray) {
 		var subject = subjectArray[i];
@@ -157,14 +157,14 @@ function dumpSubjData(subject, callback) {
 		'sent': 0,
 	}
 
-	console.log(subject)
+	//console.log(subject)
 
 	for (var state in METADATA[subject]) {
 		if (state != 'subj') { //ignore the subject key
 			responsePacket['loc']['state'] = state;
 			// slipperly dippery repub-dem calculations
 			if (subject == 'republican' || subject == 'democrat') {
-				var combined_AvgResponse = repubdemCombinedAvg(subject, state);
+				var combined_AvgResponse = repubdemCombinedAvg(state);
 
 				// some slippery cases where negation is necessary
 				//repub && avg < 0		OK
@@ -238,7 +238,7 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 	// we need to combine repub and dem so front end can handle the jazz
 	// (dem_avg - repub_avg) / (#dem_sent + # repub_sent) = new Avg
 	if (subject == 'republican' || subject == 'democrat') {
-		var combined_AvgResponse = repubdemCombinedAvg(subject, state);
+		var combined_AvgResponse = repubdemCombinedAvg(state);
 
 		// some slippery cases where negation is necessary
 		//repub && avg < 0		OK
@@ -274,11 +274,13 @@ function addSentiment(sentimentArray, sentiment) {
 	return sentimentArray;
 }
 
-function repubdemCombinedAvg(subject, state) {
-	var repubdem_numSentiments = METADATA[subject][state]['sentimentResponses'].length;
+function repubdemCombinedAvg(state) {
+	var repub_sentimentArray = METADATA['republican'][state]['sentimentResponses'];
+	var dem_sentimentArray = METADATA['democrat'][state]['sentimentResponses'];
+	var repubdem_numSentiments = repub_sentimentArray.length + dem_sentimentArray.length;
+
 	var repub_AvgResponse;
 	var dem_AvgResponse;
-
 	try {
 		repub_AvgResponse = -1 * arrayAvg(METADATA['republican'][state]['sentimentResponses']);
 	}
