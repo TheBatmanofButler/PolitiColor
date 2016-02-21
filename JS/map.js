@@ -162,7 +162,7 @@ var stateToNum = {
   WA:"w0",
   WV:"w28",
   WI:"w7",
-  WY:"w13"
+  WY:"w13" 
 }
 
 var currentCandidate = "repub-dem";
@@ -230,16 +230,23 @@ function processData(data) {
   //console.log(data.id)
 
   // for(index in data.subj) {
-  for(index in data.subj) {
 
-    var subject = data.subj[index]; 
-    var color = getColorFromTweet(data, subject);
-    data.color = color; 
+  //   var subject = data.subj[index]; 
+  //   var color = getColorFromTweet(data, subject);
+  //   data.color = color; 
 
-    subjToStore[subject][data.id] = data;
+  //   subjToStore[subject][data.id] = data;
 
-    d3.select('#' + data.id).attr({"fill":data.color});
-  }
+  //   d3.select('#' + data.id).attr({"fill":data.color});
+  // }
+
+  var subject = data.subj[0]; 
+  var color = getColorFromTweet(data, subject);
+  data.color = color; 
+
+  subjToStore[subject][data.id] = data;
+
+  d3.select('#' + data.id).attr({"fill":data.color});
   
 }
 
