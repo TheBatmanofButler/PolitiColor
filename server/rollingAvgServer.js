@@ -200,10 +200,19 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 	METADATA[subject][state]['sentimentResponses'] = subjLocSent_SentResponses;
 
 	originalResponse.subj = [subject];
-	originalResponse.sent = subjLocSent_AvgResponse;
-	
-	if(subject === 'trump' && state === 'CA') {
-		console.log(originalResponse);
+
+	// NOW HERE COME THE ELEPHANTS:
+	// if subject is "republican" or "democrat", then a special average needs to be conveyed
+	// we need to combine repub and dem so front end can handle the jazz
+	// (dem_avg - repub_avg) / (#dem_sent + # repub_sent) = new Avg
+	if (subject == 'republican' || subject == 'democrat') {
+		var repubdem_numSentiments = METADATA[subject][state]['sentimentResponses'].length;
+		var repub_AvgResponse = -1 * arrayAvg(METADATA[subject][state]['sentimentResponses']);
+		var dem_AvgResponse = arrayAvg(METADATA[subject][state]['sentimentResponses']);
+		originalResponse.sent =  (repub_AvgResponse + dem_AvgResponse) / repubdem_numSentiments;
+	}
+	else {
+		originalResponse.sent = subjLocSent_AvgResponse;
 	}
 
 	// Finally, return the requested data
