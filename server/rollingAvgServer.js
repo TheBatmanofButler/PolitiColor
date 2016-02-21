@@ -1,6 +1,10 @@
 // Derek Hong 2016
 // 
 
+//NOTES FOR FUTURE:
+// it would be better to populate each and every subject object initially rather than on the fly.
+// this avoids pesky "undefined" issues downstream
+
 var fs = require('fs');
 var csv = require('fast-csv');
 
@@ -42,7 +46,7 @@ LocationSentiment Object: Object that stores the sentiments tied to a location a
 */
 
 // Max sentimentResponses Array[Num] size
-var MAX_SENTIMENT_RESPONSES = 100000;
+var MAX_SENTIMENT_RESPONSES = 50000;
 
 
 // Subject Objects
@@ -127,6 +131,8 @@ function localUpdateSubject(sentimentResponse, callback) {
 	var state = sentimentResponse['loc']['state'];
 	var sentiment = sentimentResponse['sent'];
 
+	console.log(sentiment)
+
 	for (var i in subjectArray) {
 		var subject = subjectArray[i];
 
@@ -194,6 +200,7 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 	// Set the new currResponse to the newly obtained sentiment
 	subjLocSent_CurrResponse = sentiment;
 
+
 	// rebuild METADATA for this subject for the new data
 	METADATA[subject][state]['avgResponse'] = subjLocSent_AvgResponse;
 	METADATA[subject][state]['currResponse'] = subjLocSent_CurrResponse;
@@ -207,10 +214,30 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 	// (dem_avg - repub_avg) / (#dem_sent + # repub_sent) = new Avg
 	if (subject == 'republican' || subject == 'democrat') {
 		var repubdem_numSentiments = METADATA[subject][state]['sentimentResponses'].length;
-		var repub_AvgResponse = -1 * arrayAvg(METADATA[subject][state]['sentimentResponses']);
-		var dem_AvgResponse = arrayAvg(METADATA[subject][state]['sentimentResponses']);
+		var repub_AvgResponse;
+		var dem_AvgResponse;
+
+		try {
+			repub_AvgResponse = -1 * arrayAvg(METADATA['republican'][state]['sentimentResponses']);
+		}
+		catch(err) {
+			// state does not exist
+			repub_AvgResponse = 0;
+		}
+		try {
+			dem_AvgResponse = arrayAvg(METADATA['democrat'][state]['sentimentResponses']);
+		}
+		catch(err) {
+			// state does not exist
+			dem_AvgResponse = 0;
+		}
 
 		var combined_AvgResponse = (repub_AvgResponse + dem_AvgResponse) / repubdem_numSentiments;
+
+		// console.log(repubdem_numSentiments)
+		// console.log(repub_AvgResponse)
+		// console.log(dem_AvgResponse)
+		// console.log(combined_AvgResponse)
 
 		// some slippery cases where negation is necessary
 		//repub && avg < 0		OK
@@ -256,21 +283,41 @@ function arrayAvg(array) {
 }
 
 
-/*
-// test first data in clean database
-var sent1 = {
-	loc: {state: 'NY'},
-	subj: ['cruz'],
-	sent: -0.45
-}
+
+// // test first data in clean database
+// var sent1 = {
+// 	loc: {state: 'NY'},
+// 	subj: ['republican'],
+// 	sent: -0.45
+// }
+// var sent2 = {
+// 	loc: {state: 'NY'},
+// 	subj: ['republican'],
+// 	sent: -0.45
+// }
+// var sent3 = {
+// 	loc: {state: 'NY'},
+// 	subj: ['republican'],
+// 	sent: -0.45
+// }
+// var sent4 = {
+// 	loc: {state: 'NY'},
+// 	subj: ['republican'],
+// 	sent: -0.45
+// }
+// var sent5 = {
+// 	loc: {state: 'NY'},
+// 	subj: ['republican'],
+// 	sent: -0.45
+// }
 
 
 
-updateSubject(sent1, (data) => {console.log(data)});
-//updateSubject(sent1, (data) => {console.log(METADATA['cruz'])});
-//updateSubject(sent1, (data) => {console.log(METADATA['republican'])});
-//updateSubject(sent1, (data) => {console.log(METADATA['democrat'])});
-*/
+// localUpdateSubject(sent1, (data) => {console.log(METADATA['republican'])});
+// localUpdateSubject(sent2, (data) => {console.log(METADATA['republican'])});
+// localUpdateSubject(sent3, (data) => {console.log(METADATA['republican'])});
+// localUpdateSubject(sent4, (data) => {console.log(METADATA['republican'])});
+// localUpdateSubject(sent5, (data) => {console.log(METADATA['republican'])});
 
 
 
