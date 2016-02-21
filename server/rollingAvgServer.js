@@ -14,24 +14,23 @@ Packet Object: Object format that is received from Sentiment Engine.  Object for
 				to pass onto the Front End
 {
 	loc: Location Object	The Location object which stores information about location
-	subj: Array[String]		Is candidate name or "Democrat" or "Republican"
-	sent: Num				Number between [0,1)  Represents rolling sentiment value average
-	tweet: String 			The processed tweet from the Sentiment Engine (not used)
+	subj: Array[String]		Is either candidate name, "Democrat", or "Republican"
+	sent: Num				Number that is -1 or 1.  Represents rolling sentiment value average
+	tweet: String 			The processed tweet from the Sentiment Engine (not currently used)
 }
 
 Subject Object: Object that stores the sentiments of a Subject (either candidate name or party)
 {
-	subj: String			Is candidate name, or "Democrat" or "Republican"
-	_locName_: LocationSentiment Object			The sentiments tied to a location
+	subj: String			Is either candidate name, "Democrat", or "Republican"
+	_locName_: LocationSentiment Object			{ The sentiments tied to a location
 	_locName_: LocationSentiment Object			for this certain subject.  
 	.											_locName_ is replaced with the appropriate
 	.											loc denomination (currently "state", the 
-	.											two letter state code).
+	.											two letter state code). }
 	_locName_: LocationSentiment Object			
 }
 
 LocationSentiment Object: Object that stores the sentiments tied to a location and a user
-							It is up to the user to know that information accordingly.
 {
 	subj: String
 	loc: Location Object
@@ -47,12 +46,12 @@ var MAX_SENTIMENT_RESPONSES = 100000;
 
 
 // Subject Objects
-var trumpData = { 'subj': 'trump' };
-var sandersData = { 'subj': 'sanders' };
-var clintonData = { 'subj': 'clinton' };
-var cruzData = { 'subj': 'cruz' };
+var trumpData = 	{ 'subj': 'trump' };
+var sandersData = 	{ 'subj': 'sanders' };
+var clintonData = 	{ 'subj': 'clinton' };
+var cruzData = 		{ 'subj': 'cruz' };
 var republicanData = { 'subj': 'republican' };
-var democratData = { 'subj': 'democrat' };
+var democratData = 	{ 'subj': 'democrat' };
 
 // ALL THE DATA
 var METADATA = {
@@ -134,7 +133,7 @@ function localUpdateSubject(sentimentResponse, callback) {
 		// Executes all the nessecary METADATA adjustments to the subject in question
 		updateSubjData(state, subject, sentiment, sentimentResponse, callback)
 
-		// Executes all the nessecary METADATA adjustments to republican or democratic
+		// Executes all the nessecary METADATA adjustments to republican or democrat
 		if (subject == 'trump' || subject == 'cruz') {
 			updateSubjData(state, 'republican', sentiment, sentimentResponse, callback)
 		}
@@ -182,6 +181,7 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 
 	// now, deposit the newest sentiment response into the LocationSentiment for this Subject
 	if (subjLocSent_SentResponses.length > MAX_SENTIMENT_RESPONSES) {
+		// if the length of the array exceeds MAX_SENTIMENT_RESPONSES, ROLL BABY ROLL
 		subjLocSent_SentResponses = addSentiment(subjLocSent_SentResponses, subjLocSent_CurrResponse);
 	}
 	else {
