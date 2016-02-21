@@ -234,11 +234,6 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 
 		var combined_AvgResponse = (repub_AvgResponse + dem_AvgResponse) / repubdem_numSentiments;
 
-		// console.log(repubdem_numSentiments)
-		// console.log(repub_AvgResponse)
-		// console.log(dem_AvgResponse)
-		// console.log(combined_AvgResponse)
-
 		// some slippery cases where negation is necessary
 		//repub && avg < 0		OK
 		//dem 	&& avg < 0		NEGATE

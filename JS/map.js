@@ -181,45 +181,6 @@ function getColorFromTweet(tweetObj, subject) {
 
 function mapColors() {
   for(key in stateToNum) {
-
-    // if(currentCandidate === 'repub-dem') {
-
-    //   var repubVal = 0;
-    //   var demVal = 0;
-
-    //   if(mostRecentRepublican[stateToNum[key]])
-    //     repubVal = mostRecentRepublican[stateToNum[key]].sent;
-
-    //   if(mostRecentDemocrat[stateToNum[key]])
-    //     demVal = mostRecentDemocrat[stateToNum[key]].sent;
-
-    //   //console.log(repubVal)
-    //   //console.log(demVal)
-
-    //   var value = 0;
-
-    //   if(repubVal > demVal) {
-    //     value = repubVal - demVal;
-    //     color = colorMap['republican'] + value + ")";
-    //   } else if (demVal > repubVal) {
-    //     value = demVal - repubVal;
-    //     color = colorMap['democrat'] + value + ")";
-    //   } else {
-    //     color = '#FFF';
-    //   }
-
-    //   d3.select('#' + stateToNum[key]).attr({"fill":color});
-
-    // } else {
-
-    //   if(subjToStore[currentCandidate][stateToNum[key]])
-    //     d3.select('#' + stateToNum[key]).attr({"fill":subjToStore[currentCandidate][stateToNum[key]].color});
-    //   else
-    //     d3.select('#' + stateToNum[key]).attr({"fill":'#FFF'});
-
-    // }
-
-    //let's try this...
     if(subjToStore[currentCandidate][stateToNum[key]])
       d3.select('#' + stateToNum[key]).attr({"fill":subjToStore[currentCandidate][stateToNum[key]].color});
     else
@@ -233,24 +194,6 @@ function processData(data) {
   console.log(data)
 
   data.id = stateToNum[data.loc.state]; 
-
-  // for(index in data.subj) {
-  //   var subject = data.subj[index]; 
-  //   var color = getColorFromTweet(data, subject);
-  //   data.color = color; 
-
-  //   subjToStore[subject][data.id] = data;
-
-  //   if(data.subj[index] === currentCandidate)
-  //     d3.select('#' + data.id).attr({"fill":data.color});
-
-  //   if( (data.subj[index] === 'republican' || data.subj[index] === 'democrat') && currentCandidate === 'repub-dem')
-  //     d3.select('#' + data.id).attr({"fill":data.color});
-
-  // }
-  
-
-  //changed because should only be recieving one subject at a time (ie: list of size 1)
   var subject = data.subj[0]; 
   var color = getColorFromTweet(data, subject);
   data.color = color; 
