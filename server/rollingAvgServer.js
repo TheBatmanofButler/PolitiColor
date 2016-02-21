@@ -209,7 +209,23 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 		var repubdem_numSentiments = METADATA[subject][state]['sentimentResponses'].length;
 		var repub_AvgResponse = -1 * arrayAvg(METADATA[subject][state]['sentimentResponses']);
 		var dem_AvgResponse = arrayAvg(METADATA[subject][state]['sentimentResponses']);
-		originalResponse.sent =  (repub_AvgResponse + dem_AvgResponse) / repubdem_numSentiments;
+
+		var combined_AvgResponse = (repub_AvgResponse + dem_AvgResponse) / repubdem_numSentiments;
+
+		// some slippery cases where negation is necessary
+		//repub && avg < 0		OK
+		//dem 	&& avg < 0		NEGATE
+		//repub && avg > 0		NEGATE
+		//dem 	&& avg > 0		OK
+		if (subject == 'republican' && combined_AvgResponse > 0) {
+			originalResponse.sent =  -1 * combined_AvgResponse;
+		}
+		else if (subject == 'democrat' && combined_AvgResponse < 0) {
+			originalResponse.sent =  -1 * combined_AvgResponse;
+		}
+		else { //WE GUCCI, BOYS, NO NEGATION NECESSARY
+			originalResponse.sent =  combined_AvgResponse;
+		}
 	}
 	else {
 		originalResponse.sent = subjLocSent_AvgResponse;
