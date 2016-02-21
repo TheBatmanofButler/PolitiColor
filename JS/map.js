@@ -196,7 +196,7 @@ function mapColors() {
 
 function processData(data) {  
 
-  //console.log(data)
+  console.log(data)
 
   data.id = stateToNum[data.loc.state]; 
   var subject = data.subj[0]; 
