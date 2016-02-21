@@ -99,16 +99,18 @@ var mostRecentTrump = {};
 var mostRecentCruz = {};
 var mostRecentClinton = {};
 var mostRecentSanders = {};
-var mostRecentDemocrat = {};
-var mostRecentRepublican = {};
+//var mostRecentDemocrat = {};
+//var mostRecentRepublican = {};
+mostRecentRepubdem = {};
 
 var subjToStore = {
   'trump':mostRecentTrump,
   'cruz':mostRecentCruz,
   'clinton':mostRecentClinton,
   'sanders':mostRecentSanders,
-  'democrat':mostRecentDemocrat,
-  'republican':mostRecentRepublican
+  //'democrat':mostRecentDemocrat,
+  //'republican':mostRecentRepublican
+  'repub-dem':mostRecentRepubdem
 }
 
 var stateToNum = {
@@ -167,6 +169,8 @@ var stateToNum = {
 
 var currentCandidate = "repub-dem";
 
+//console.log(subjToStore['cruz'])
+
 function getColorFromTweet(tweetObj, subject) {
 
   if(tweetObj.sent < 0) {
@@ -181,24 +185,30 @@ function getColorFromTweet(tweetObj, subject) {
 
 function mapColors() {
   for(key in stateToNum) {
-    if(subjToStore[currentCandidate][stateToNum[key]])
+    if(subjToStore[currentCandidate][stateToNum[key]]){
       d3.select('#' + stateToNum[key]).attr({"fill":subjToStore[currentCandidate][stateToNum[key]].color});
-    else
+    }
+    else {
       d3.select('#' + stateToNum[key]).attr({"fill":'#FFF'});
-
+    }
   }
 }
 
 function processData(data) {  
 
-  console.log(data)
+  //console.log(data)
 
   data.id = stateToNum[data.loc.state]; 
   var subject = data.subj[0]; 
   var color = getColorFromTweet(data, subject);
   data.color = color; 
 
-  subjToStore[subject][data.id] = data;
+  if (subject == 'republican' || subject == 'democrat') {
+    subjToStore['repub-dem'][data.id] = data;
+  }
+  else {
+    subjToStore[subject][data.id] = data;
+  }
 
   if(subject === currentCandidate)
     d3.select('#' + data.id).attr({"fill":data.color});

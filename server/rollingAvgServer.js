@@ -78,19 +78,20 @@ module.exports = {
 
 	// Dumps all avgSentiment Data to client
 	dumpData: function(callback) {
-		console.log('dumping data')
+		console.log('dumping data');
 		dumpSubjData('trump', callback);
 		dumpSubjData('sanders', callback);
 		dumpSubjData('clinton', callback);
 		dumpSubjData('cruz', callback);
 		dumpSubjData('republican', callback);
-		dumpSubjData('democrat', callback);
-		console.log('data dumped')
+		dumpSubjData('democrat', callback);  // you really only need to dump one, but YOLO
+		console.log('data dumped');
 	}
 
 	,
 
 	// THIS WILL BREAK IF THE PACKET INFORMATION CHANGES CONTACT DEREK SEE IF HE REMEMBERS IF NOT ALL HOPE IS LOST
+	// not currently used
 	loadData: function(callback) {
 
 		console.log('loading')
@@ -156,10 +157,34 @@ function dumpSubjData(subject, callback) {
 		'sent': 0,
 	}
 
+	console.log(subject)
+
 	for (var state in METADATA[subject]) {
-		if (state != 'subj') {
+		if (state != 'subj') { //ignore the subject key
 			responsePacket['loc']['state'] = state;
-			responsePacket['sent'] = METADATA[subject][state]['avgResponse'];
+			// slipperly dippery repub-dem calculations
+			if (subject == 'republican' || subject == 'democrat') {
+				var combined_AvgResponse = repubdemCombinedAvg();
+
+				// some slippery cases where negation is necessary
+				//repub && avg < 0		OK
+				//dem 	&& avg < 0		NEGATE
+				//repub && avg > 0		NEGATE
+				//dem 	&& avg > 0		OK
+				if (subject == 'republican' && combined_AvgResponse > 0) {
+					responsePacket['sent'] = -1 * combined_AvgResponse;
+				}
+				else if (subject == 'democrat' && combined_AvgResponse < 0) {
+					responsePacket['sent'] = -1 * combined_AvgResponse;
+				}
+				else { //WE GUCCI, BOYS, NO NEGATION NECESSARY
+					responsePacket['sent'] = combined_AvgResponse;
+				}
+			}
+			else {
+				responsePacket['sent'] = METADATA[subject][state]['avgResponse'];
+			}
+
 			callback(responsePacket)
 		}
 	}
@@ -213,26 +238,7 @@ function updateSubjData(state, subject, sentiment, originalResponse, callback) {
 	// we need to combine repub and dem so front end can handle the jazz
 	// (dem_avg - repub_avg) / (#dem_sent + # repub_sent) = new Avg
 	if (subject == 'republican' || subject == 'democrat') {
-		var repubdem_numSentiments = METADATA[subject][state]['sentimentResponses'].length;
-		var repub_AvgResponse;
-		var dem_AvgResponse;
-
-		try {
-			repub_AvgResponse = -1 * arrayAvg(METADATA['republican'][state]['sentimentResponses']);
-		}
-		catch(err) {
-			// state does not exist
-			repub_AvgResponse = 0;
-		}
-		try {
-			dem_AvgResponse = arrayAvg(METADATA['democrat'][state]['sentimentResponses']);
-		}
-		catch(err) {
-			// state does not exist
-			dem_AvgResponse = 0;
-		}
-
-		var combined_AvgResponse = (repub_AvgResponse + dem_AvgResponse) / repubdem_numSentiments;
+		var combined_AvgResponse = repubdemCombinedAvg();
 
 		// some slippery cases where negation is necessary
 		//repub && avg < 0		OK
@@ -266,6 +272,29 @@ function addSentiment(sentimentArray, sentiment) {
 	sentimentArray.push(sentiment);
 
 	return sentimentArray;
+}
+
+function repubdemCombinedAvg() {
+	var repubdem_numSentiments = METADATA[subject][state]['sentimentResponses'].length;
+	var repub_AvgResponse;
+	var dem_AvgResponse;
+
+	try {
+		repub_AvgResponse = -1 * arrayAvg(METADATA['republican'][state]['sentimentResponses']);
+	}
+	catch(err) {
+		// state does not exist
+		repub_AvgResponse = 0;
+	}
+	try {
+		dem_AvgResponse = arrayAvg(METADATA['democrat'][state]['sentimentResponses']);
+	}
+	catch(err) {
+		// state does not exist
+		dem_AvgResponse = 0;
+	}
+
+	return (repub_AvgResponse + dem_AvgResponse) / repubdem_numSentiments;
 }
 
 // find average of Array[Num]
