@@ -275,8 +275,20 @@ function addSentiment(sentimentArray, sentiment) {
 }
 
 function repubdemCombinedAvg(state) {
-	var repub_sentimentArray = METADATA['republican'][state]['sentimentResponses'];
-	var dem_sentimentArray = METADATA['democrat'][state]['sentimentResponses'];
+	var repub_sentimentArray;
+	var dem_sentimentArray;
+	try {
+		repub_sentimentArray = METADATA['republican'][state]['sentimentResponses'];
+	}
+	catch(err) {
+		repub_sentimentArray = [];
+	}
+	try {
+		dem_sentimentArray = METADATA['democrat'][state]['sentimentResponses'];
+	}
+	catch(err) {
+		dem_sentimentArray = [];
+	}
 	var repubdem_numSentiments = repub_sentimentArray.length + dem_sentimentArray.length;
 
 	var repub_AvgResponse;
