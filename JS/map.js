@@ -60,8 +60,8 @@ function ready(error, us, congress, callback) {
 
 //-----------------------------------------------------------------------------------------------------------------
 
-//var socket = io('http://54.164.115.173:8010');
-var socket = io('http://127.0.0.1:8010');
+var socket = io('http://54.164.115.173:8010');
+//var socket = io('http://127.0.0.1:8010');
 
 var colorMap = {
   "trump":"rgba(233,29,14,",

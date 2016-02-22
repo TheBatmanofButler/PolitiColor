@@ -72,6 +72,7 @@ ul, li {
     box-shadow: 0 0 28px 6px rgba(66, 166, 243, 0.8);
   }
 
+/*
   .trump, .cruz, .republican {
     background: url('../img/redbutton.png');
   }
@@ -83,6 +84,25 @@ ul, li {
 
   .repub-dem {
     background-image: url('../img/greybutton.png');
+  }
+  */
+
+  .buttons .republican {
+    background-image: url('../img/repub.jpeg');
+    height: 100px;
+    width: 100px;
+  }
+
+  .buttons .democrat {
+    background-image: url('../img/dem.png');
+    height: 100px;
+    width: 100px;
+  }
+
+  .buttons .repub-dem {
+    background-image: url('../img/repubdem.jpg');
+    height: 100px;
+    width: 200px;
   }
 
 .land {
