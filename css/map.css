@@ -72,11 +72,11 @@ ul, li {
     box-shadow: 0 0 28px 6px rgba(66, 166, 243, 0.8);
   }
 
-  .trump, .cruz {
+  .trump, .cruz, .republican {
     background: url('../img/redbutton.png');
   }
 
-  .sanders, .clinton {
+  .sanders, .clinton, .democrat {
     background-image: url('../img/bluebutton.png');
 
   }

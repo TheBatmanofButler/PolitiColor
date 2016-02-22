@@ -60,8 +60,7 @@ function ready(error, us, congress, callback) {
 
 //-----------------------------------------------------------------------------------------------------------------
 
-//var socket = io('http://54.164.115.173:8010');
-var socket = io('http://127.0.0.1:8010');
+var socket = io('http://54.164.115.173:8010');
 
 var colorMap = {
   "trump":"rgba(233,29,14,",
@@ -69,17 +68,14 @@ var colorMap = {
   "sanders":"rgba(35,32,102,",
   "clinton":"rgba(35,32,102,",
   "democrat":"rgba(35,32,102,",
-  "republican":"rgba(233,29,14,",
-  "repub-dem":"rgba(35,32,102,"
+  "republican":"rgba(233,29,14,"
 }
 
 var mapInfo = {"trump": "The redder the state, the more positive the Trump response of Twitter users in the state. The bluer the state, the more negative the response.",
 "cruz": "The redder the state, the more positive the Cruz response of Twitter users in the state. The bluer the state, the more negative the response.",
 "sanders": "The bluer the state, the more positive the Sanders response of Twitter users in the state. The redder the state, the more negative the response.",
 "clinton": "The bluer the state, the more positive the Clinton response of Twitter users in the state. The redder the state, the more negative the response.",
-"bothParties": "The bluer the state, the more positive the Democratic response of Twitter users in the state. The redder the state, the more positive the Republican response.",
-'republican': "The redder the state, the more positive the Republican Party response of Twitter users in the state. The bluer the state, the more negative the response.",
-'democrat': "The bluer the state, the more positive the Democratic Party response of Twitter users in the state. The redder the state, the more negative the response."}
+"bothParties": "The bluer the state, the more positive the Democratic response of Twitter users in the state. The redder the state, the more positive the Republican response."}
 
 $(document).ready(function() {
 
@@ -99,22 +95,18 @@ $(document).ready(function() {
 });
 
 
-// var mostRecentTrump = {};
-// var mostRecentCruz = {};
-// var mostRecentClinton = {};
-// var mostRecentSanders = {};
+var mostRecentTrump = {};
+var mostRecentCruz = {};
+var mostRecentClinton = {};
+var mostRecentSanders = {};
 var mostRecentRepubdem = {};
-var mostRecentDemocrat = {};
-var mostRecentRepublican = {};
 
 var subjToStore = {
-  // 'trump':mostRecentTrump,
-  // 'cruz':mostRecentCruz,
-  // 'clinton':mostRecentClinton,
-  // 'sanders':mostRecentSanders,
-  'repub-dem':mostRecentRepubdem,
-  'republican':mostRecentRepublican,
-  'democrat':mostRecentDemocrat
+  'trump':mostRecentTrump,
+  'cruz':mostRecentCruz,
+  'clinton':mostRecentClinton,
+  'sanders':mostRecentSanders,
+  'repub-dem':mostRecentRepubdem
 }
 
 var stateToNum = {
@@ -178,10 +170,9 @@ var currentCandidate = "repub-dem";
 function getColorFromTweet(tweetObj, subject) {
 
   if(tweetObj.sent < 0) {
-    // also, we negate repubdem because, in fact, a negative repubdem is positive for republicans
-    if(subject === 'democrat' || subject === 'repub-dem') 
+    if(subject === 'democrat' || subject === 'sanders' || subject === 'clinton')
       return colorMap['trump'] + Math.abs(tweetObj.sent) + ")"
-    else // subject === 'republican'
+    else
       return colorMap['sanders'] + Math.abs(tweetObj.sent) + ")"
   }
 
@@ -201,59 +192,67 @@ function mapColors() {
 
 function processData(data) {  
 
-  //console.log(data);
+  console.log(data)
 
   data.id = stateToNum[data.loc.state]; 
   var subject = data.subj[0]; 
   var color = getColorFromTweet(data, subject);
   data.color = color; 
 
-  subjToStore[subject][data.id] = data;
-
-  if (subject === currentCandidate) {
-    d3.select('#' + data.id).attr({"fill":data.color});
+  if (subject == 'republican' || subject == 'democrat') {
+    subjToStore['repub-dem'][data.id] = data;
   }
+  else {
+    subjToStore[subject][data.id] = data;
+  }
+
+  if(subject === currentCandidate)
+    d3.select('#' + data.id).attr({"fill":data.color});
+
+  if( (subject === 'republican' || subject === 'democrat') && currentCandidate === 'repub-dem')
+    d3.select('#' + data.id).attr({"fill":data.color});
+  
 }
 
 socket.on('serverToClient', function(data){
   processData(data);
 });
 
-// $('.trump').click(function() {
-//   $('.map-title').slideToggle(function() {
-//     $(this).html('Trump').slideToggle();
-//   });
-//   $('.overlay').text(mapInfo.trump);
-//   currentCandidate = 'trump';
-//   mapColors();
-// });
+$('.trump').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Trump').slideToggle();
+  });
+  $('.overlay').text(mapInfo.trump);
+  currentCandidate = 'trump';
+  mapColors();
+});
 
-// $('.cruz').click(function() {
-//   $('.map-title').slideToggle(function() {
-//     $(this).html('Cruz').slideToggle();
-//   });
-//   $('.overlay').text(mapInfo.cruz);
-//   currentCandidate = 'cruz';
-//   mapColors();
-// });
+$('.cruz').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Cruz').slideToggle();
+  });
+  $('.overlay').text(mapInfo.cruz);
+  currentCandidate = 'cruz';
+  mapColors();
+});
 
-// $('.sanders').click(function() {
-//   $('.map-title').slideToggle(function() {
-//     $(this).html('Sanders').slideToggle();
-//   });
-//   $('.overlay').text(mapInfo.sanders);
-//   currentCandidate = 'sanders';
-//   mapColors();
-// });
+$('.sanders').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Sanders').slideToggle();
+  });
+  $('.overlay').text(mapInfo.sanders);
+  currentCandidate = 'sanders';
+  mapColors();
+});
 
-// $('.clinton').click(function() {
-//   $('.map-title').slideToggle(function() {
-//     $(this).html('Clinton').slideToggle();
-//   });
-//   $('.overlay').text(mapInfo.clinton);
-//   currentCandidate = 'clinton';
-//   mapColors();
-// });
+$('.clinton').click(function() {
+  $('.map-title').slideToggle(function() {
+    $(this).html('Clinton').slideToggle();
+  });
+  $('.overlay').text(mapInfo.clinton);
+  currentCandidate = 'clinton';
+  mapColors();
+});
 
 $('.repub-dem').click(function() {
   $('.map-title').slideToggle(function() {
@@ -263,26 +262,3 @@ $('.repub-dem').click(function() {
   currentCandidate = 'repub-dem';
   mapColors();
 });
-
-$('.democrat').click(function() {
-  $('.map-title').slideToggle(function() {
-    $(this).html('Democratic Party').slideToggle();
-  });
-  $('.overlay').text(mapInfo.bothParties);
-  currentCandidate = 'democrat';
-  mapColors();
-});
-
-$('.republican').click(function() {
-  $('.map-title').slideToggle(function() {
-    $(this).html('Republican Party').slideToggle();
-  });
-  $('.overlay').text(mapInfo.bothParties);
-  currentCandidate = 'republican';
-  mapColors();
-});
-
-
-
-
-
