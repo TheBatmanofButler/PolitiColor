@@ -152,10 +152,14 @@ function dumpSubjData(subject, callback) {
 				combined_AvgResponse = combinedAvg(state, ['republican', 'cruz', 'trump']); }
 			else if (subject == 'democrat' ) {
 				combined_AvgResponse = combinedAvg(state, ['democrat', 'clinton', 'sanders']); }
-			else if (subject == 'repub-dem') {
-				combined_AvgResponse = combinedRepubdemAvg(state); }
+			
+			// Hollaback for that subject
 			responsePacket['sent'] = combined_AvgResponse;
+			callback(responsePacket)
 
+			// Also hollabkac for the repubdem for that state
+			responsePacket['subj'] = ['repub-dem']
+			responsePacket['sent'] = combinedRepubdemAvg(state);
 			callback(responsePacket)
 		}
 	}
@@ -168,7 +172,7 @@ function updateSubjData(state, subject, sentiment) {
 			'subj': subject,
 			'loc': { 'state': state },
 			'avgResponse': 0,
-			'currResponse': 1,
+			'currResponse': 0,
 			'sentimentResponses': []
 		};
 		METADATA[subject][state] = newLocationSentiment;
